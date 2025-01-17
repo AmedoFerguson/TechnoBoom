@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
+
+@import '../../mixins'
+@import '../../variables'
+
+.wrapper
+  z-index: 2
+  width: 311px
+  height: 100vh
+  background: $primary-color
+  position: relative
+
+.logo
+  position: absolute
+  background: url('./img/logo1.svg') no-repeat
+  background-size: cover
+  width: 280px
+  height: 120px
+  top: 40px
+  left: -10px
+
+.filter
+  position: relative
+  .filter-price
+    &::before
+      position: absolute
+      top: 180px
+      left: 5px
+      display: block
+      content: ''
+      width: 300px
+      height: 2px
+      background: #fff
+    &::after
+      position: absolute
+      top: 274px
+      left: 5px
+      display: block
+      content: ''
+      width: 300px
+      height: 2px
+      background: #fff
+    .holder
+      position: absolute
+      width: 159px
+      height: 2px
+      background: #DC3200
+      top: 250px
+      left: 60px
+      &::before
+        display: block
+        content: ''
+        width: 25px
+        height: 25px
+        background: #D9D9D9
+        border-radius: 50%
+        position: absolute
+        top: -11px
+        left: -25px
+        opacity: 0.3
+      &::after
+        display: block
+        content: ''
+        width: 25px
+        height: 25px
+        background: #D9D9D9
+        border-radius: 50%
+        position: absolute
+        top: -11px
+        left: 159px
+        opacity: 0.3
+    .title-price
+      position: absolute
+      top: 195px
+      left: 10px
+      @include main-text
+      &::after
+        display: block
+        content: ''
+        background: #fff
+        width: 25px
+        height: 2px
+        margin-left: 158px
+        margin-top: -11px
+    .search-price-1
+      margin-bottom: -17px
+      position: relative
+      &:before
+        position: absolute
+        content: ''
+        display: block
+        background: red
+        width: 40px
+    .search-price-2
+      margin-top: 15px /* Отступ сверху */
+      position: relative
+      .price-input2
+        max-width: 300px 
+        margin: 0 auto 
+        position: absolute
+        margin-left: 130px
+  .filter-brand
+    position: absolute
+    @include main-text
+    left: 5px
+    top: 290px
+    .search-brand
+      position: absolute
+      top: -195px
+      left: 80px
+

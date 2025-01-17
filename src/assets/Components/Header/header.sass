@@ -1,0 +1,81 @@
+@import '../../mixins'
+@import '../../variables'
+
+header
+    position: absolute
+    top: 0
+    left: -15px
+    width: 100vw
+    height: 95px
+    background: $primary-color
+    z-index: 1
+    .search
+        margin-left: 150px
+        margin-top: 13px
+        height: 95px
+        position: relative
+        .search-bg
+            @include main-text(14px, 800,#fff)
+            position: absolute
+            left: 1000px
+            top: 25px
+            text-align: center
+            align-content: center
+            width: 100px
+            height: 32px
+            background: #dc3200
+            z-index: 10
+            border-radius: 0 8px 8px 0
+            cursor: pointer
+            transition: background 500ms ease
+            &:hover
+                background: #bc2d01
+
+        .search-logo
+            position: absolute
+            top: 28px
+            left: 525px
+            height: 25px
+            width: 25px
+            z-index: 5
+            background: url(./img/search.png), no-repeat
+            background-size: cover
+        .search-holder
+            width: 500px
+            margin: 0 auto
+            position: absolute
+            top: 25px
+            left: 520px
+            padding-left: 40px
+    .navigation
+        text-align: center
+        align-items: center
+        position: absolute
+        left: 1580px
+        top: 30px
+        width: 280px
+        display: flex
+        justify-content: space-between
+        float: right
+        @include main-text(14px,800,#fff)
+        .bg-nav
+            background: #dc3200
+            padding: 10px
+            border-radius: 10px
+            cursor: pointer
+            transition: background 500ms ease
+            &:hover
+                background: #bc2d01
+        .nav-logo
+            padding: 0
+            background: url('./img/login_logo.png'), no-repeat
+            background-size: cover
+            width: 35px
+            height: 40px
+            border-radius: 0
+            transform: scale(0.8)
+            transition: background 500ms ease
+            cursor: pointer
+            &:hover
+                background: url('./img/login_logo_dark.png'), no-repeat
+                background-size: cover

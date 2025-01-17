@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
+@import '../../../mixins'
+@import '../../../variables'
+
+.brand_name
+  position: absolute
+  display: flex
+  flex-direction: column
+  gap: 10px
+  width: 200px
+  left: 39px
+  top: 40px
+  @include main-text
+
+  .brand
+    position: relative
+    padding-left: 35px 
+
+    &::before
+      content: ''
+      width: 20px
+      height: 20px
+      background: #fff
+      border: 2px solid #d9d9d9
+      border-radius: 5px
+      position: absolute
+      left: 0
+      top: 50%
+      transform: translateY(-50%)
+  .brand.active::before
+    background: url('./img/active.png') no-repeat
+    background-size: cover
+    border-radius: 50%
+    border: none
+    margin-left: 2px
+    margin-top: -9px
+    transform: scale(1.2)

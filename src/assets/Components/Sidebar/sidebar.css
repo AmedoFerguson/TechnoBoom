@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+.wrapper {
+  z-index: 2;
+  width: 311px;
+  height: 100vh;
+  background: #21201E;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  background: url("./img/logo1.svg") no-repeat;
+  background-size: cover;
+  width: 280px;
+  height: 120px;
+  top: 40px;
+  left: -10px;
+}
+
+.filter {
+  position: relative;
+}
+.filter .filter-price::before {
+  position: absolute;
+  top: 180px;
+  left: 5px;
+  display: block;
+  content: "";
+  width: 300px;
+  height: 2px;
+  background: #fff;
+}
+.filter .filter-price::after {
+  position: absolute;
+  top: 274px;
+  left: 5px;
+  display: block;
+  content: "";
+  width: 300px;
+  height: 2px;
+  background: #fff;
+}
+.filter .filter-price .holder {
+  position: absolute;
+  width: 159px;
+  height: 2px;
+  background: #DC3200;
+  top: 250px;
+  left: 60px;
+}
+.filter .filter-price .holder::before {
+  display: block;
+  content: "";
+  width: 25px;
+  height: 25px;
+  background: #D9D9D9;
+  border-radius: 50%;
+  position: absolute;
+  top: -11px;
+  left: -25px;
+  opacity: 0.3;
+}
+.filter .filter-price .holder::after {
+  display: block;
+  content: "";
+  width: 25px;
+  height: 25px;
+  background: #D9D9D9;
+  border-radius: 50%;
+  position: absolute;
+  top: -11px;
+  left: 159px;
+  opacity: 0.3;
+}
+.filter .filter-price .title-price {
+  position: absolute;
+  top: 195px;
+  left: 10px;
+  font-family: "Montserrat", serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+.filter .filter-price .title-price::after {
+  display: block;
+  content: "";
+  background: #fff;
+  width: 25px;
+  height: 2px;
+  margin-left: 158px;
+  margin-top: -11px;
+}
+.filter .filter-price .search-price-1 {
+  margin-bottom: -17px;
+  position: relative;
+}
+.filter .filter-price .search-price-1:before {
+  position: absolute;
+  content: "";
+  display: block;
+  background: red;
+  width: 40px;
+}
+.filter .filter-price .search-price-2 {
+  margin-top: 15px;
+  position: relative;
+}
+.filter .filter-price .search-price-2 .price-input2 {
+  max-width: 300px;
+  margin: 0 auto;
+  position: absolute;
+  margin-left: 130px;
+}
+.filter .filter-brand {
+  position: absolute;
+  font-family: "Montserrat", serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  left: 5px;
+  top: 290px;
+}
+.filter .filter-brand .search-brand {
+  position: absolute;
+  top: -195px;
+  left: 80px;
+}/*# sourceMappingURL=sidebar.css.map */
