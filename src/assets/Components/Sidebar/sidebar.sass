@@ -3,109 +3,173 @@
 @import '../../mixins'
 @import '../../variables'
 
-.wrapper
+
+.sidebar-wrapper
+  display: flex
   z-index: 2
   width: 311px
-  height: 100vh
   background: $primary-color
   position: relative
-
-.logo
-  position: absolute
-  background: url('./img/logo1.svg') no-repeat
-  background-size: cover
-  width: 280px
-  height: 120px
-  top: 40px
-  left: -10px
-
-.filter
-  position: relative
-  .filter-price
-    &::before
+  min-height: 100vh  
+  box-sizing: border-box  
+  height: auto
+  @media (max-width: 1640px)
+    height: calc( 100vh + 3px )
+  @media (max-width: 393px) 
+    width: 200px
+    height: 652px
+    display: none
+    z-index: 1000
+  .reset-filters
+    .reset-filters-btn
+      padding: 6px
+      background: #dc3200
+      border: 1px solid #3E3D3B
       position: absolute
-      top: 180px
-      left: 5px
+      top: 300px
+      left: 200px
+      width: 80px
+      border-radius: 50px
+      text-align: center
+      cursor: pointer
+      align-items: center
+      @include main-text(12px, 800, #fff)
+      transition: all 500ms ease
+      @media (max-width: 393px)
+        top: 193px
+        left: 110px
+        padding: 3px
+      &:hover
+        transform: scale(1.2)
+        background: #bc2d01
+  .exit-sidebar
+    display: none
+    @media (max-width: 393px)
       display: block
-      content: ''
-      width: 300px
-      height: 2px
-      background: #fff
-    &::after
       position: absolute
-      top: 274px
-      left: 5px
-      display: block
-      content: ''
-      width: 300px
-      height: 2px
-      background: #fff
-    .holder
-      position: absolute
-      width: 159px
-      height: 2px
-      background: #DC3200
-      top: 250px
-      left: 60px
-      &::before
-        display: block
-        content: ''
-        width: 25px
-        height: 25px
-        background: #D9D9D9
-        border-radius: 50%
-        position: absolute
-        top: -11px
-        left: -25px
-        opacity: 0.3
-      &::after
-        display: block
-        content: ''
-        width: 25px
-        height: 25px
-        background: #D9D9D9
-        border-radius: 50%
-        position: absolute
-        top: -11px
-        left: 159px
-        opacity: 0.3
-    .title-price
-      position: absolute
-      top: 195px
-      left: 10px
-      @include main-text
-      &::after
-        display: block
-        content: ''
-        background: #fff
-        width: 25px
-        height: 2px
-        margin-left: 158px
-        margin-top: -11px
-    .search-price-1
-      margin-bottom: -17px
-      position: relative
-      &:before
-        position: absolute
-        content: ''
-        display: block
-        background: red
-        width: 40px
-    .search-price-2
-      margin-top: 15px /* Отступ сверху */
-      position: relative
-      .price-input2
-        max-width: 300px 
-        margin: 0 auto 
-        position: absolute
-        margin-left: 130px
-  .filter-brand
+      color: #dc3200
+      left: 170px
+      top: 10px
+      transform: scale(2)
+  .logo
     position: absolute
-    @include main-text
-    left: 5px
-    top: 290px
-    .search-brand
+    background: url('./img/logo1.svg') no-repeat
+    background-size: cover
+    width: 280px
+    height: 120px
+    top: 40px
+    left: -10px
+    @media (max-width: 393px)
+      background: url('./img/logo-mobile.svg') no-repeat
+      transform: scale(1.5)
+      left: 70px
+      top: 50px
+  .filter
+    position: relative
+    .filter-price
+      &::before
+        position: absolute
+        top: 180px
+        left: 5px
+        display: block
+        content: ''
+        width: 300px
+        height: 2px
+        background: #fff
+        @media (max-width: 393px)
+          width: 200px
+          left: 0
+          top: 80px
+      &::after
+        position: absolute
+        top: 234px
+        left: 5px
+        display: block
+        content: ''
+        width: 300px
+        height: 2px
+        background: #fff
+        @media (max-width: 393px)
+          width: 200px
+          left: 0
+          top: 184px
+      .title-price
+        position: absolute
+        left: 10px
+        top: 195px
+        @include main-text
+        @media (max-width: 393px)
+          top: 95px
+        &::after
+          display: block
+          content: ''
+          background: #3E3D3B
+          width: 25px
+          height: 2px
+          margin-left: 158px
+          margin-top: -11px
+          @media (max-width: 393px)
+            width: 20px
+            background: #3E3D3B
+            height: 1px
+            position: absolute
+            top: 65px
+            left: -85px
+      .search-price-1
+        margin-bottom: -17px
+        position: relative
+        color: #fff
+        .price-input1
+          background: #21201E
+          border: 1px solid #3E3D3B
+          @media (max-width: 393px)
+            width: 55px
+            height: 15px
+            padding: 7px
+            padding-left: 10px
+            background: #21201E
+            border: 1px solid #3E3D3B
+            font-size: 12px
+            top: 135px
+            left: 8px
+            color: #fff
+      .search-price-2
+        margin-top: 15px 
+        position: relative
+        .price-input2
+          color: #fff
+          max-width: 300px 
+          margin: 0 auto 
+          position: absolute
+          margin-left: 130px
+          background: #21201E
+          border: 1px solid #3E3D3B
+          @media (max-width: 393px)
+            width: 55px
+            height: 15px
+            padding: 7px
+            padding-left: 10px
+            background: #21201E
+            border: 1px solid #3E3D3B
+            font-size: 12px
+            top: 135px
+            left: -25px
+            color: #fff
+    .filter-brand
       position: absolute
-      top: -195px
-      left: 80px
-
+      @include main-text
+      left: 15px
+      top: 250px
+      @media (max-width: 393px)
+        top: 200px
+        left: 10px
+      .search-brand
+        color: #fff
+        position: absolute
+        top: -195px
+        left: 115px
+        @media (max-width: 393px)
+          display: none
+        .search-brand-input
+          background: #21201E
+          border: 1px solid #3E3D3B

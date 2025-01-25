@@ -1,40 +1,64 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './FilterBrands.css'
 
-interface Brand {
+interface Model {
 	id: number
-	brand: string
+	model: string // Модель ноутбука
 }
 
 interface FilterBrandsProps {
-	brands: Brand[]
+	brands: Model[] // Список моделей для фильтрации
+	searchTerm: string // Поиск по модели
+	onModelChange: (models: string[]) => void // Обработчик изменения моделей
+	activeModels: string[] // Передаем активные модели
 }
 
-const FilterBrands: React.FC<FilterBrandsProps> = ({ brands }) => {
-	const [activeBrandIds, setActiveBrandIds] = useState<number[]>([]) 
+const FilterBrands: React.FC<FilterBrandsProps> = ({
+	brands,
+	searchTerm,
+	onModelChange,
+	activeModels,
+}) => {
+	const [activeBrandIds, setActiveBrandIds] = useState<number[]>([])
+
+	// Сбрасываем активные галочки при изменении активных моделей
+	useEffect(() => {
+		const newActiveIds = brands
+			.filter(brand => activeModels.includes(brand.model))
+			.map(brand => brand.id)
+		setActiveBrandIds(newActiveIds)
+	}, [brands, activeModels])
 
 	const handleClick = (id: number) => {
 		setActiveBrandIds(prevActiveIds => {
+			const updatedIds = prevActiveIds.includes(id)
+				? prevActiveIds.filter(activeId => activeId !== id) // Удаляем модель из активных
+				: [...prevActiveIds, id] // Добавляем модель в активные
 
-			if (prevActiveIds.includes(id)) {
-				return prevActiveIds.filter(activeId => activeId !== id)
-			} else {
-				return [...prevActiveIds, id]
-			}
+			const updatedModels = brands
+				.filter(brand => updatedIds.includes(brand.id))
+				.map(brand => brand.model)
+
+			onModelChange(updatedModels) // Обновляем выбранные модели
+			return updatedIds // Возвращаем обновленный массив активных идентификаторов
 		})
 	}
 
+	const filteredBrands = brands.filter(brand =>
+		brand.model.toLowerCase().includes(searchTerm.toLowerCase())
+	)
+
 	return (
 		<div className='brand_name'>
-			{brands.map(brand => (
+			{filteredBrands.map(brand => (
 				<div
 					key={brand.id}
 					className={`brand ${
 						activeBrandIds.includes(brand.id) ? 'active' : ''
-					}`} 
-					onClick={() => handleClick(brand.id)}
+					}`}
+					onClick={() => handleClick(brand.id)} // Передаем модель в обработчик
 				>
-					{brand.brand}
+					{brand.model}
 				</div>
 			))}
 		</div>

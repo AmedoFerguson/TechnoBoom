@@ -4,5 +4,21 @@
 }
 
 .wrapper {
+  display: flex;
+  margin: 0;
+  padding: 0;
   position: relative;
+  z-index: 1;
+}
+.wrapper.active:after {
+  display: block;
+  content: "";
+  opacity: 0.4;
+  background: #D9D9D9;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }/*# sourceMappingURL=index.css.map */

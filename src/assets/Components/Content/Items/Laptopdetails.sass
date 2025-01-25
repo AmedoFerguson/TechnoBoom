@@ -1,0 +1,74 @@
+.laptop-details
+  z-index: 5
+  position: absolute
+  top: 65px
+  left: 325px
+  width: 700px
+  height: 680px
+  background: #fff
+  display: block
+  @media (max-width: 393px)
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vh
+  .exit-button-details
+    position: absolute
+    top: 5px
+    left: 665px
+    color: #dc3200
+    z-index: 40
+    width: 30px
+    height: 30px
+    cursor: pointer
+    transition: color 500ms ease
+    @media (max-width: 393px)
+      left: 360px
+    &:hover
+      color: #bc2d01
+  .ad
+    position: absolute
+    top: 20px
+    left: 220px
+    font-size: 36px
+    font-weight: 800
+    @media (max-width: 393px)
+      font-size: 24px
+      left: 115px
+  .upper-laptop-details
+    width: 650px
+    height: 350px
+    background: #E7E7E7
+    align-content: center
+    text-align: center
+    margin-left: 25px
+    margin-top: 90px
+    border-radius: 10px 10px 0 0 
+    z-index: 50
+    @media (max-width: 393px)
+      width: 100vw
+      height: 50vh
+      margin-left: 0
+      margin-top: 80px
+    img
+      height: 300px
+      object-fit: cover
+      @media (max-width: 393px)
+        height: 200px
+  .lower-laptop-details
+    z-index: 4
+    width: 650px
+    height: 232px
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), -2px 2px 5px rgba(0, 0, 0, 0.3)
+    margin-left: 25px
+    align-content: center
+    text-align: center
+    font-size: 24px
+    @media (max-width: 393px)
+      margin-left: 0
+      width: 100vw
+      height: 50vh
+    .laptop-title
+      margin-top: -30px
+      @media (max-width: 393px)
+        margin-top: -80px

@@ -1,11 +1,30 @@
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: #21201E;
+  z-index: 1;
+}
+
 header {
   position: absolute;
   top: 0;
-  left: -15px;
+  left: 0;
   width: 100vw;
   height: 95px;
   background: #21201E;
   z-index: 1;
+  transition: top 0.3s ease-in-out;
+}
+@media (max-width: 393px) {
+  header {
+    height: 39px;
+    position: fixed;
+    z-index: 100000;
+  }
 }
 header .search {
   margin-left: 150px;
@@ -13,14 +32,38 @@ header .search {
   height: 95px;
   position: relative;
 }
+@media (max-width: 1536px) {
+  header .search {
+    margin-left: -100px;
+  }
+}
+@media (max-width: 393px) {
+  header .search {
+    height: 10px;
+  }
+}
+header .search .burger-menu {
+  display: none;
+  position: absolute;
+  top: -2px;
+  left: 110px;
+  color: #fff;
+  transform: scale(1.9);
+  z-index: 1000;
+}
+@media (max-width: 393px) {
+  header .search .burger-menu {
+    display: block;
+  }
+}
 header .search .search-bg {
+  position: absolute;
+  left: 980px;
+  top: 25px;
   font-family: "Montserrat", serif;
   font-size: 14px;
   font-weight: 800;
   color: #fff;
-  position: absolute;
-  left: 1000px;
-  top: 25px;
   text-align: center;
   align-content: center;
   width: 100px;
@@ -34,6 +77,11 @@ header .search .search-bg {
 header .search .search-bg:hover {
   background: #bc2d01;
 }
+@media (max-width: 393px) {
+  header .search .search-bg {
+    display: none;
+  }
+}
 header .search .search-logo {
   position: absolute;
   top: 28px;
@@ -44,6 +92,11 @@ header .search .search-logo {
   background: url(./img/search.png), no-repeat;
   background-size: cover;
 }
+@media (max-width: 393px) {
+  header .search .search-logo {
+    display: none;
+  }
+}
 header .search .search-holder {
   width: 500px;
   margin: 0 auto;
@@ -51,12 +104,23 @@ header .search .search-holder {
   top: 25px;
   left: 520px;
   padding-left: 40px;
+  color: #333;
+}
+@media (max-width: 393px) {
+  header .search .search-holder {
+    width: 265px;
+    height: 29px;
+    left: 170px;
+    top: -9px;
+    padding: 0;
+    padding-left: 10px;
+  }
 }
 header .navigation {
   text-align: center;
   align-items: center;
   position: absolute;
-  left: 1580px;
+  left: 1570px;
   top: 30px;
   width: 280px;
   display: flex;
@@ -66,6 +130,27 @@ header .navigation {
   font-size: 14px;
   font-weight: 800;
   color: #fff;
+}
+@media (max-width: 1536px) {
+  header .navigation {
+    top: 34px;
+    left: 1200px;
+  }
+}
+@media (max-width: 393px) {
+  header .navigation {
+    display: none;
+  }
+}
+header .navigation .login {
+  position: absolute;
+  top: 0;
+  left: 0px;
+}
+header .navigation .registration {
+  position: absolute;
+  top: 0;
+  left: 80px;
 }
 header .navigation .bg-nav {
   background: #dc3200;
@@ -77,18 +162,69 @@ header .navigation .bg-nav {
 header .navigation .bg-nav:hover {
   background: #bc2d01;
 }
+header .navigation .logout {
+  position: absolute;
+  top: 16px;
+  left: -30px;
+}
+header .navigation .new-ad {
+  position: absolute;
+  top: 16px;
+  left: 70px;
+}
 header .navigation .nav-logo {
+  position: absolute;
+  left: 230px;
+  top: 0px;
   padding: 0;
   background: url("./img/login_logo.png"), no-repeat;
   background-size: cover;
   width: 35px;
   height: 40px;
   border-radius: 0;
-  transform: scale(0.8);
   transition: background 500ms ease;
   cursor: pointer;
 }
 header .navigation .nav-logo:hover {
   background: url("./img/login_logo_dark.png"), no-repeat;
   background-size: cover;
+}
+header .mobile-header {
+  display: none;
+  position: absolute;
+  background: #fff;
+  width: 100vw;
+  height: 50px;
+  top: 600px;
+  left: 0;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+@media (max-width: 393px) {
+  header .mobile-header {
+    display: block;
+  }
+}
+header .mobile-header .profile-icon {
+  color: #dc3200;
+  width: 25px;
+  height: 29px;
+  position: absolute;
+  top: 7px;
+  left: 185px;
+}
+header .mobile-header .new-ad-mobile {
+  z-index: 1000000000;
+  color: #bc3200;
+  position: absolute;
+  height: 45px;
+  width: 45px;
+  left: 200px;
+}
+header .mobile-header .logout {
+  height: 45px;
+  width: 45px;
+  position: absolute;
+  left: 140px;
+  color: #DC3200;
 }/*# sourceMappingURL=header.css.map */

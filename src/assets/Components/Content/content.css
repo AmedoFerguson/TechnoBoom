@@ -1,1 +1,24 @@
-/*# sourceMappingURL=content.css.map */
+.content-wrapper {
+  margin-left: 0;
+  width: calc(100vw - 311px);
+  min-height: calc(100vh - 95px);
+  height: auto;
+  position: absolute;
+  top: 95px;
+  left: 311px;
+  background: url("./img/bg-content.png"), no-repeat;
+  background-size: cover;
+  font-family: "Montserrat", serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #333;
+}
+@media (max-width: 393px) {
+  .content-wrapper {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+  }
+}/*# sourceMappingURL=content.css.map */

@@ -1,40 +1,117 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
+import axios from 'axios'
+import { RxCross2 } from 'react-icons/rx'
 import './sidebar.css'
 import FilterBrands from './FilterBrands/FilterBrands'
 import Input from './Input/Input'
 
-interface Brand {
+interface Model {
 	id: number
-	brand: string
+	model: string
+}
+
+interface SidebarProps {
+	onFilterChange: (
+		selectedModels: string[],
+		minPrice: string,
+		maxPrice: string
+	) => void
 }
 
 interface SidebarState {
-	brands: Brand[]
-	priceInput: string
+	brands: Model[]
+	searchTerm: string
+	selectedModels: string[]
+	minPrice: string
+	maxPrice: string
 }
 
-export class Sidebar extends Component<object, SidebarState> {
-	constructor(props: object) {
+const API_URL = 'http://127.0.0.1:8000/'
+
+export class Sidebar extends Component<SidebarProps, SidebarState> {
+	constructor(props: SidebarProps) {
 		super(props)
 		this.state = {
-			brands: [
-				{ id: 1, brand: 'MSI' },
-				{ id: 2, brand: 'Lenovo' },
-				{ id: 3, brand: 'Acer' },
-				{ id: 4, brand: 'Gigabyte' },
-			],
-			priceInput: '',
+			brands: [],
+			searchTerm: '',
+			selectedModels: [],
+			minPrice: '',
+			maxPrice: '',
 		}
 	}
 
-	handlePriceChange = (value: string) => {
-		this.setState({ priceInput: value })
+	componentDidMount() {
+		this.fetchModels()
+	}
+
+
+	fetchModels = async () => {
+		try {
+			const response = await axios.get(`${API_URL}items/`)
+			this.setState({
+				brands: response.data.map((item: any) => ({
+					id: item.id,
+					model: item.model,
+				})),
+			})
+		} catch (error) {
+			console.error('Ошибка при загрузке моделей:', error)
+		}
+	}
+
+	handleMinPriceChange = (value: string) => {
+		this.setState({ minPrice: value }, this.updateFilters)
+	}
+
+	handleMaxPriceChange = (value: string) => {
+		this.setState({ maxPrice: value }, this.updateFilters)
+	}
+
+	handleSearchBrandChange = (value: string) => {
+		this.setState({ searchTerm: value })
+	}
+
+	handleModelChange = (models: string[]) => {
+		this.setState({ selectedModels: models }, this.updateFilters)
+	}
+
+	updateFilters = () => {
+		const { selectedModels, minPrice, maxPrice } = this.state
+		this.props.onFilterChange(selectedModels, minPrice, maxPrice)
+	}
+
+	resetFilters = () => {
+		this.setState(
+			{
+				searchTerm: '',
+				selectedModels: [],
+				minPrice: '',
+				maxPrice: '',
+			},
+			this.updateFilters
+		)
 	}
 
 	render() {
+		const { brands, searchTerm, selectedModels } = this.state 
+		const filteredBrands = brands.filter(brand =>
+			brand.model.toLowerCase().includes(searchTerm.toLowerCase())
+		)
+
 		return (
 			<div className='sidebar'>
-				<div className='wrapper'>
+				<div className='sidebar-wrapper'>
+					<RxCross2
+						className='exit-sidebar'
+						onClick={() => {
+							const sidebarWrapper = document.querySelector(
+								'.sidebar-wrapper'
+							) as HTMLElement
+							if (sidebarWrapper) {
+								sidebarWrapper.style.display = 'none'
+							}
+						}}
+					/>
 					<div className='logo'></div>
 					<div className='filter'>
 						<div className='filter-price'>
@@ -45,8 +122,8 @@ export class Sidebar extends Component<object, SidebarState> {
 								<Input
 									type='text'
 									placeholder='20000'
-									value={this.state.priceInput}
-									onChange={this.handlePriceChange}
+									value={this.state.minPrice}
+									onChange={this.handleMinPriceChange}
 									className='price-input1'
 								/>
 							</div>
@@ -54,27 +131,35 @@ export class Sidebar extends Component<object, SidebarState> {
 								<Input
 									type='text'
 									placeholder='100000'
-									value={this.state.priceInput}
-									onChange={this.handlePriceChange}
+									value={this.state.maxPrice}
+									onChange={this.handleMaxPriceChange}
 									className='price-input2'
 								/>
 							</div>
-							<div className='holder'></div>
-							<div className='brands'></div>
 						</div>
 						<div className='filter-brand'>
-							<div className='title-brand'>Бренди</div>
+							<div className='title-brand'>Модель</div>
 							<div className='search-brand'>
 								<Input
 									type='text'
 									placeholder='Пошук'
-									value={this.state.priceInput}
-									onChange={this.handlePriceChange}
-									className='price-input1'
+									value={searchTerm}
+									onChange={this.handleSearchBrandChange}
+									className='search-brand-input'
 								/>
 							</div>
-							<FilterBrands brands={this.state.brands} />
+							<FilterBrands
+								brands={filteredBrands}
+								searchTerm={searchTerm}
+								onModelChange={this.handleModelChange}
+								activeModels={selectedModels} 
+							/>
 						</div>
+					</div>
+					<div className='reset-filters'>
+						<span onClick={this.resetFilters} className='reset-filters-btn'>
+							Скинути фільтри
+						</span>
 					</div>
 				</div>
 			</div>

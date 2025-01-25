@@ -1,0 +1,116 @@
+.laptop-list {
+  display: block;
+  width: 1343px;
+  margin-left: 110px;
+  margin-top: 50px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 393px) {
+  .laptop-list {
+    width: 400px;
+    margin-left: -20px;
+    justify-content: space-between;
+  }
+}
+.laptop-list .laptop {
+  width: 300px;
+  height: 271px;
+  background: #fff;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 50px;
+  margin-left: 30px;
+}
+@media (max-width: 393px) {
+  .laptop-list .laptop {
+    height: 146px;
+    width: 146px;
+    margin-left: 40px;
+  }
+}
+.laptop-list .laptop .upper-laptop {
+  width: 300px;
+  height: 175px;
+  background: #E7E7E7;
+  align-content: center;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+}
+@media (max-width: 393px) {
+  .laptop-list .laptop .upper-laptop {
+    width: 146px;
+    height: 46px;
+    background: #fff;
+  }
+}
+.laptop-list .laptop .upper-laptop img {
+  height: 100px;
+}
+@media (max-width: 393px) {
+  .laptop-list .laptop .upper-laptop img {
+    height: 75px;
+    align-content: center;
+    text-align: center;
+    margin-top: 5px;
+  }
+}
+.laptop-list .laptop .lower-laptop {
+  text-align: center;
+  width: 300px;
+  height: 90px;
+}
+@media (max-width: 393px) {
+  .laptop-list .laptop .lower-laptop {
+    width: 146px;
+    height: 50px;
+  }
+}
+.laptop-list .laptop .lower-laptop::after {
+  display: block;
+  content: "";
+  width: 300px;
+  height: 6px;
+  background: #DC3200;
+  border-radius: 0 0 4px 4px;
+}
+@media (max-width: 393px) {
+  .laptop-list .laptop .lower-laptop::after {
+    width: 146px;
+  }
+}
+.laptop-list .laptop .lower-laptop .laptop-title {
+  margin-top: 20px;
+  font-size: 14px;
+}
+@media (max-width: 393px) {
+  .laptop-list .laptop .lower-laptop .laptop-title {
+    font-size: 12px;
+    margin-top: 40px;
+  }
+}
+.laptop-list .laptop .lower-laptop .laptop-model {
+  font-size: 14px;
+  font-weight: 200;
+  margin-top: 10px;
+}
+@media (max-width: 393px) {
+  .laptop-list .laptop .lower-laptop .laptop-model {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+}
+.laptop-list .laptop .lower-laptop .laptop-price {
+  font-size: 14px;
+  margin-top: 10px;
+}
+@media (max-width: 393px) {
+  .laptop-list .laptop .lower-laptop .laptop-price {
+    font-size: 12px;
+  }
+}
+.laptop-list .laptop .btn-delete {
+  position: absolute;
+  top: 0;
+  left: 0;
+}/*# sourceMappingURL=Items.css.map */

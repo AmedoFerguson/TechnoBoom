@@ -1,37 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Input.css'
 
 interface InputProps {
-	type?: string
-	placeholder?: string
-	value?: string
-	onChange?: (value: string) => void
+	type: string
+	placeholder: string
+	value: string
+	onChange: (value: string) => void // Ожидаем строку
 	className?: string
 }
 
 const Input: React.FC<InputProps> = ({
-	type = 'text',
-	placeholder = '',
-	value = '',
+	type,
+	placeholder,
+	value,
 	onChange,
-	className = '',
+	className,
 }) => {
-	const [inputValue, setInputValue] = useState<string>(value || '')
-
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const newValue = e.target.value
-		setInputValue(newValue)
-		if (onChange) {
-			onChange(newValue)
-		}
-	}
-
 	return (
 		<input
 			type={type}
 			placeholder={placeholder}
-			value={inputValue}
-			onChange={handleChange}
+			value={value}
+			onChange={e => onChange(e.target.value)} // Передаем значение
 			className={`input ${className}`}
 		/>
 	)
