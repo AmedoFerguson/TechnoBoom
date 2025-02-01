@@ -26,7 +26,7 @@ interface SidebarState {
 	maxPrice: string
 }
 
-const API_URL = 'http://127.0.0.1:8000/'
+const API_URL = 'https://backend-production-a524.up.railway.app/'
 
 export class Sidebar extends Component<SidebarProps, SidebarState> {
 	constructor(props: SidebarProps) {
@@ -43,7 +43,6 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 	componentDidMount() {
 		this.fetchModels()
 	}
-
 
 	fetchModels = async () => {
 		try {
@@ -93,7 +92,7 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 	}
 
 	render() {
-		const { brands, searchTerm, selectedModels } = this.state 
+		const { brands, searchTerm, selectedModels } = this.state
 		const filteredBrands = brands.filter(brand =>
 			brand.model.toLowerCase().includes(searchTerm.toLowerCase())
 		)
@@ -152,7 +151,7 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 								brands={filteredBrands}
 								searchTerm={searchTerm}
 								onModelChange={this.handleModelChange}
-								activeModels={selectedModels} 
+								activeModels={selectedModels}
 							/>
 						</div>
 					</div>

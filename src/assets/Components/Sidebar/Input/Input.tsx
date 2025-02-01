@@ -5,7 +5,7 @@ interface InputProps {
 	type: string
 	placeholder: string
 	value: string
-	onChange: (value: string) => void // Ожидаем строку
+	onChange: (value: string) => void 
 	className?: string
 }
 
@@ -21,7 +21,7 @@ const Input: React.FC<InputProps> = ({
 			type={type}
 			placeholder={placeholder}
 			value={value}
-			onChange={e => onChange(e.target.value)} // Передаем значение
+			onChange={e => onChange(e.target.value)}
 			className={`input ${className}`}
 		/>
 	)

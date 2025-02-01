@@ -11,18 +11,18 @@ interface Laptop {
 	price: number
 	description: string
 	owner: number
-	image_url: string 
+	image_url: string
 }
 
 interface JwtPayload {
-	user_id: number 
+	user_id: number
 }
 
 interface LaptopDetailsProps {
 	laptop: Laptop | null
 	onClose: () => void
-	token: string 
-	onDelete: (id: number) => void 
+	token: string
+	onDelete: (id: number) => void
 }
 
 const LaptopDetails: React.FC<LaptopDetailsProps> = ({
@@ -33,7 +33,6 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 }) => {
 	const [ownerName, setOwnerName] = useState<string>('')
 
-	
 	const getUserIdFromToken = (token: string): number | null => {
 		try {
 			const decoded: JwtPayload = jwtDecode(token)
@@ -49,7 +48,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 			const fetchOwnerName = async () => {
 				try {
 					const response = await axios.get(
-						`http://127.0.0.1:8000/auth/users/${laptop.owner}/`
+						`https://backend-production-a524.up.railway.app/auth/users/${laptop.owner}/`
 					)
 					setOwnerName(response.data.username)
 				} catch (error) {
@@ -63,18 +62,16 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 
 	if (!laptop) return null
 
-	
 	const userIdFromToken = getUserIdFromToken(token)
 
 	const handleDelete = async (id: number) => {
 		try {
-			
 			await axios.delete(`http://127.0.0.1:8000/items/${id}/`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
-			
+
 			onDelete(id)
 		} catch (error) {
 			console.error('Ошибка при удалении ноутбука:', error)
@@ -87,7 +84,6 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 			<RxCross2 className='exit-button-details' onClick={onClose} />
 			<div className='ad'>Оголошення</div>
 			<div className='upper-laptop-details'>
-				
 				<img
 					src={laptop?.image_url || '/path/to/default/image.svg'}
 					className='laptop-photo-details'
@@ -108,11 +104,11 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 				<p className='laptop-owner'>
 					<strong>Власник:</strong> {ownerName || 'Невідомо'}
 				</p>
-				
+
 				{laptop.owner === userIdFromToken && (
 					<button
 						className='delete-laptop-btn'
-						onClick={() => handleDelete(laptop.id)} 
+						onClick={() => handleDelete(laptop.id)}
 					>
 						Удалить
 					</button>

@@ -63,7 +63,7 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 			}
 
 			const response = await axios.post(
-				'http://127.0.0.1:8000/items/', 
+				'https://backend-production-a524.up.railway.app/items/', 
 				formData,
 				{
 					headers: {
