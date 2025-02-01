@@ -8,7 +8,7 @@ interface Laptop {
 	price: number
 	description: string
 	owner: number
-	image_url: string 
+	image_url: string
 }
 
 interface ItemsProps {
@@ -35,7 +35,7 @@ const Items: React.FC<ItemsProps> = ({
 					<div className='laptop'>
 						<div className='upper-laptop'>
 							<img
-								src={laptop.image_url || '/path/to/default/image.svg'}
+								src={laptop.image_url || './public/null.png'}
 								alt={laptop.title}
 							/>
 						</div>
