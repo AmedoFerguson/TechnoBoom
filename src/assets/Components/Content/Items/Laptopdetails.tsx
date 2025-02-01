@@ -3,6 +3,7 @@ import './Laptopdetails.css'
 import { RxCross2 } from 'react-icons/rx'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
+import NullPng from '../../../../../public/null.png'
 
 interface Laptop {
 	id: number
@@ -88,7 +89,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 			<div className='ad'>Оголошення</div>
 			<div className='upper-laptop-details'>
 				<img
-					src={laptop?.image_url || '../img/null.png'}
+					src={laptop?.image_url || `${NullPng}`}
 					className='laptop-photo-details'
 				/>
 			</div>

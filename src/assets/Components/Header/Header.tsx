@@ -5,6 +5,7 @@ import { CiCirclePlus } from 'react-icons/ci'
 import './header.css'
 import Input from '../Sidebar/Input/Input'
 import { IoIosLogOut } from 'react-icons/io'
+import seacrhImg from '../../../../public/search.png'
 
 interface HeaderState {
 	searchInput: string
@@ -102,7 +103,7 @@ export class Header extends Component<HeaderProps, HeaderState> {
 						onClick={this.handleBurgerClick}
 					/>
 					<div className='search-logo'>
-						<img src='/public/search.png' alt='' />
+						<img src={seacrhImg} alt='' height='27px' />
 					</div>
 					<div className='search-bg'>Пошук</div>
 					<Input

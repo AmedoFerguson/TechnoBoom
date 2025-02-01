@@ -45,7 +45,7 @@
   }
 }
 .laptop-list .laptop .upper-laptop img {
-  height: 100px;
+  height: 150px;
 }
 @media (max-width: 393px) {
   .laptop-list .laptop .upper-laptop img {

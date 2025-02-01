@@ -101,4 +101,7 @@
   .laptop-details .lower-laptop-details .laptop-title {
     margin-top: -80px;
   }
+}
+.laptop-details .lower-laptop-details .laptop-desc {
+  max-height: 200px;
 }/*# sourceMappingURL=Laptopdetails.css.map */

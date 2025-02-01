@@ -89,7 +89,7 @@ header .search .search-logo {
   height: 25px;
   width: 25px;
   z-index: 5;
-  background: url(./img/search.png), no-repeat;
+  background: url(./public/search.png), no-repeat;
   background-size: cover;
 }
 @media (max-width: 393px) {
