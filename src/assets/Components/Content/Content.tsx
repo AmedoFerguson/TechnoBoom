@@ -11,25 +11,25 @@ interface Laptop {
 	price: number
 	description: string
 	owner: number
-	image_url: string 
+	image_url: string
 }
 
 interface ContentProps {
 	selectedModels: string[]
 	minPrice: string
 	maxPrice: string
-	token: string 
+	token: string
 }
 
 const Content: React.FC<ContentProps> = ({
 	selectedModels,
 	minPrice,
 	maxPrice,
-	token, 
+	token,
 }) => {
 	const [laptops, setLaptops] = useState<Laptop[]>([])
 	const [selectedLaptop, setSelectedLaptop] = useState<Laptop | null>(null)
-	const API_URL = 'https://backend-production-a524.up.railway.app/'
+	const API_URL = 'https://backend-production-a524.up.railway.app'
 
 	const fetchLaptops = async () => {
 		try {
@@ -72,8 +72,8 @@ const Content: React.FC<ContentProps> = ({
 				<LaptopDetails
 					laptop={selectedLaptop}
 					onClose={() => setSelectedLaptop(null)}
-					token={token} 
-					onDelete={() => {}} 
+					token={token}
+					onDelete={() => {}}
 				/>
 			)}
 		</div>
