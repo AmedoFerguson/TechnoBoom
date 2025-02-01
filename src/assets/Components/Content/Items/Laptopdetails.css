@@ -104,4 +104,24 @@
 }
 .laptop-details .lower-laptop-details .laptop-desc {
   max-height: 200px;
+  max-width: 100%;
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: normal;
+}
+.laptop-details .lower-laptop-details .laptop-desc span {
+  display: inline;
+  word-break: break-word;
+}
+.laptop-details .lower-laptop-details .laptop-desc .toggle-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.9em;
+  margin-left: 5px;
+}
+.laptop-details .lower-laptop-details .laptop-desc .toggle-btn:hover {
+  text-decoration: underline;
 }/*# sourceMappingURL=Laptopdetails.css.map */

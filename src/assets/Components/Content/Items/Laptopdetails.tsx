@@ -33,6 +33,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 	onDelete,
 }) => {
 	const [ownerName, setOwnerName] = useState<string>('')
+	const [isExpanded, setIsExpanded] = useState<boolean>(false) // Состояние для показа полного текста
 
 	const getUserIdFromToken = (token: string): number | null => {
 		try {
@@ -83,6 +84,14 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 		window.location.reload()
 	}
 
+	// Функция для обрезки текста
+	const truncateText = (text: string, maxLength: number) => {
+		if (text.length > maxLength && !isExpanded) {
+			return text.slice(0, maxLength) + '...'
+		}
+		return text
+	}
+
 	return (
 		<div className='laptop-details'>
 			<RxCross2 className='exit-button-details' onClick={onClose} />
@@ -91,6 +100,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 				<img
 					src={laptop?.image_url || `${NullPng}`}
 					className='laptop-photo-details'
+					alt='Laptop'
 				/>
 			</div>
 			<div className='lower-laptop-details'>
@@ -101,9 +111,20 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 				<p className='laptop-price'>
 					<strong>Ціна:</strong> {laptop.price}₴
 				</p>
-				<p className='laptop-desc'>
-					<strong>Опис:</strong> {laptop.description}
-				</p>
+
+				<div className='laptop-desc'>
+					<strong>Опис:</strong>{' '}
+					<span className='desc'>{truncateText(laptop.description, 150)}</span>
+					{laptop.description.length > 150 && (
+						<button
+							className='toggle-btn'
+							onClick={() => setIsExpanded(!isExpanded)}
+						>
+							{isExpanded ? 'Скрыть' : 'Показать больше'}
+						</button>
+					)}
+				</div>
+
 				<p className='laptop-owner'>
 					<strong>Власник:</strong> {ownerName || 'Невідомо'}
 				</p>
