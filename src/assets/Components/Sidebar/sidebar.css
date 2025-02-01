@@ -2,7 +2,7 @@
 .sidebar-wrapper {
   display: flex;
   z-index: 2;
-  width: 311px;
+  width: 341px;
   background: #21201E;
   position: relative;
   min-height: 100vh;
@@ -27,8 +27,8 @@
   background: #dc3200;
   border: 1px solid #3E3D3B;
   position: absolute;
-  top: 300px;
-  left: 200px;
+  top: 295px;
+  left: 230px;
   width: 80px;
   border-radius: 50px;
   text-align: center;
@@ -90,7 +90,7 @@
   left: 5px;
   display: block;
   content: "";
-  width: 300px;
+  width: 330px;
   height: 2px;
   background: #fff;
 }
@@ -107,7 +107,7 @@
   left: 5px;
   display: block;
   content: "";
-  width: 300px;
+  width: 330px;
   height: 2px;
   background: #fff;
 }
@@ -136,9 +136,9 @@
   display: block;
   content: "";
   background: #3E3D3B;
-  width: 25px;
+  width: 35px;
   height: 2px;
-  margin-left: 158px;
+  margin-left: 178px;
   margin-top: -11px;
 }
 @media (max-width: 393px) {
@@ -157,6 +157,7 @@
   color: #fff;
 }
 .sidebar-wrapper .filter .filter-price .search-price-1 .price-input1 {
+  margin-left: 20px;
   background: #21201E;
   border: 1px solid #3E3D3B;
 }
@@ -183,7 +184,7 @@
   max-width: 300px;
   margin: 0 auto;
   position: absolute;
-  margin-left: 130px;
+  margin-left: 160px;
   background: #21201E;
   border: 1px solid #3E3D3B;
 }
@@ -220,7 +221,7 @@
   color: #fff;
   position: absolute;
   top: -195px;
-  left: 115px;
+  left: 145px;
 }
 @media (max-width: 393px) {
   .sidebar-wrapper .filter .filter-brand .search-brand {
