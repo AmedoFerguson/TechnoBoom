@@ -17,6 +17,7 @@ interface Laptop {
 
 interface JwtPayload {
 	user_id: number
+	is_superuser: boolean
 }
 
 interface LaptopDetailsProps {
@@ -34,15 +35,23 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 }) => {
 	const [ownerName, setOwnerName] = useState<string>('')
 
-	const getUserIdFromToken = (token: string): number | null => {
+	
+	const getUserInfoFromToken = (
+		token: string
+	): { userId: number | null; isSuperUser: boolean } => {
 		try {
 			const decoded: JwtPayload = jwtDecode(token)
-			return decoded.user_id || null
+			return {
+				userId: decoded.user_id || null,
+				isSuperUser: decoded.is_superuser || false,
+			}
 		} catch (error) {
 			console.error('Ошибка декодирования токена:', error)
-			return null
+			return { userId: null, isSuperUser: false }
 		}
 	}
+
+	const { userId, isSuperUser } = getUserInfoFromToken(token)
 
 	useEffect(() => {
 		if (laptop) {
@@ -53,7 +62,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 					)
 					setOwnerName(response.data.username)
 				} catch (error) {
-					console.error('Error fetching owner data', error)
+					console.error('Ошибка при получении данных владельца:', error)
 				}
 			}
 
@@ -62,8 +71,6 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 	}, [laptop])
 
 	if (!laptop) return null
-
-	const userIdFromToken = getUserIdFromToken(token)
 
 	const handleDelete = async (id: number) => {
 		try {
@@ -89,7 +96,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 			<div className='ad'>Оголошення</div>
 			<div className='upper-laptop-details'>
 				<img
-					src={laptop?.image_url || `${NullPng}`}
+					src={laptop.image_url || `${NullPng}`}
 					className='laptop-photo-details'
 					alt='Laptop'
 				/>
@@ -116,7 +123,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 					<strong>Власник:</strong> {ownerName || 'Невідомо'}
 				</p>
 
-				{laptop.owner === userIdFromToken && (
+				{(laptop.owner === userId || isSuperUser) && (
 					<button
 						className='delete-laptop-btn'
 						onClick={() => handleDelete(laptop.id)}
