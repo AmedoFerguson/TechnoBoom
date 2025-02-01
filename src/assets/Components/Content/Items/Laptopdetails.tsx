@@ -83,7 +83,6 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 		window.location.reload()
 	}
 
-
 	return (
 		<div className='laptop-details'>
 			<RxCross2 className='exit-button-details' onClick={onClose} />
@@ -122,7 +121,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 						className='delete-laptop-btn'
 						onClick={() => handleDelete(laptop.id)}
 					>
-						Удалить
+						Видалити
 					</button>
 				)}
 			</div>
