@@ -4,7 +4,7 @@
   top: 65px;
   left: 325px;
   width: 700px;
-  height: 680px;
+  height: 720px;
   background: #fff;
   display: block;
 }
@@ -78,9 +78,10 @@
   }
 }
 .laptop-details .lower-laptop-details {
+  padding-top: 10px;
   z-index: 4;
   width: 650px;
-  height: 232px;
+  height: 262px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), -2px 2px 5px rgba(0, 0, 0, 0.3);
   margin-left: 25px;
   align-content: center;
