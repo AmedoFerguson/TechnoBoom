@@ -1,10 +1,12 @@
+@import '../../../mixins'
+  
 .laptop-details
   z-index: 5
   position: absolute
-  top: 65px
+  top: 35px
   left: 325px
   width: 700px
-  height: 740px
+  height: 770px
   background: #fff
   display: block
   @media (max-width: 393px)
@@ -59,7 +61,7 @@
     padding-top: 20px
     z-index: 4
     width: 650px
-    height: 262px
+    height: 292px
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), -2px 2px 5px rgba(0, 0, 0, 0.3)
     margin-left: 25px
     align-content: center
@@ -95,3 +97,13 @@
           outline: none
           border-color: #007bff
           background-color: #fff
+    .delete-laptop-btn
+      width: 200px
+      height: 40px
+      background: #dc3200
+      border: none
+      cursor: pointer
+      @include main-text
+      transition: background 500ms ease
+      &:hover
+        background: #bc2d01
