@@ -1,5 +1,5 @@
 import React from 'react'
-import './Items.css
+import './Items.css'
 
 interface Laptop {
 	id: number
