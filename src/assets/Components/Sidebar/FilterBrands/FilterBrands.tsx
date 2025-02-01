@@ -3,14 +3,14 @@ import './FilterBrands.css'
 
 interface Model {
 	id: number
-	model: string // Модель ноутбука
+	model: string
 }
 
 interface FilterBrandsProps {
-	brands: Model[] // Список моделей для фильтрации
-	searchTerm: string // Поиск по модели
-	onModelChange: (models: string[]) => void // Обработчик изменения моделей
-	activeModels: string[] // Передаем активные модели
+	brands: Model[]
+	searchTerm: string
+	onModelChange: (models: string[]) => void
+	activeModels: string[]
 }
 
 const FilterBrands: React.FC<FilterBrandsProps> = ({
@@ -21,7 +21,6 @@ const FilterBrands: React.FC<FilterBrandsProps> = ({
 }) => {
 	const [activeBrandIds, setActiveBrandIds] = useState<number[]>([])
 
-	// Сбрасываем активные галочки при изменении активных моделей
 	useEffect(() => {
 		const newActiveIds = brands
 			.filter(brand => activeModels.includes(brand.model))
@@ -32,19 +31,24 @@ const FilterBrands: React.FC<FilterBrandsProps> = ({
 	const handleClick = (id: number) => {
 		setActiveBrandIds(prevActiveIds => {
 			const updatedIds = prevActiveIds.includes(id)
-				? prevActiveIds.filter(activeId => activeId !== id) // Удаляем модель из активных
-				: [...prevActiveIds, id] // Добавляем модель в активные
+				? prevActiveIds.filter(activeId => activeId !== id)
+				: [...prevActiveIds, id]
 
 			const updatedModels = brands
 				.filter(brand => updatedIds.includes(brand.id))
 				.map(brand => brand.model)
 
-			onModelChange(updatedModels) // Обновляем выбранные модели
-			return updatedIds // Возвращаем обновленный массив активных идентификаторов
+			onModelChange(updatedModels)
+			return updatedIds
 		})
 	}
 
-	const filteredBrands = brands.filter(brand =>
+
+	const uniqueBrands = Array.from(
+		new Map(brands.map(brand => [brand.model, brand])).values()
+	)
+
+	const filteredBrands = uniqueBrands.filter(brand =>
 		brand.model.toLowerCase().includes(searchTerm.toLowerCase())
 	)
 
@@ -56,7 +60,7 @@ const FilterBrands: React.FC<FilterBrandsProps> = ({
 					className={`brand ${
 						activeBrandIds.includes(brand.id) ? 'active' : ''
 					}`}
-					onClick={() => handleClick(brand.id)} // Передаем модель в обработчик
+					onClick={() => handleClick(brand.id)}
 				>
 					{brand.model}
 				</div>
