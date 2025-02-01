@@ -102,7 +102,7 @@ export class Header extends Component<HeaderProps, HeaderState> {
 						onClick={this.handleBurgerClick}
 					/>
 					<div className='search-logo'>
-						<img src='./public/search.png' alt='' />
+						<img src='/public/search.png' alt='' />
 					</div>
 					<div className='search-bg'>Пошук</div>
 					<Input

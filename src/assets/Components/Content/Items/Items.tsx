@@ -34,7 +34,7 @@ const Items: React.FC<ItemsProps> = ({
 				>
 					<div className='laptop'>
 						<div className='upper-laptop'>
-							<img src={laptop.image_url || '../img/null.png'} />
+							<img src={laptop.image_url || '/public/null.png'} />
 						</div>
 						<div className='lower-laptop'>
 							<div className='laptop-title'>{laptop.title}</div>
