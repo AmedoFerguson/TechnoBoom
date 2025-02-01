@@ -29,7 +29,7 @@ const Content: React.FC<ContentProps> = ({
 }) => {
 	const [laptops, setLaptops] = useState<Laptop[]>([])
 	const [selectedLaptop, setSelectedLaptop] = useState<Laptop | null>(null)
-	const API_URL = 'https://backend-production-a524.up.railway.app'
+	const API_URL = 'https://backend-production-a524.up.railway.app/'
 
 	const fetchLaptops = async () => {
 		try {
