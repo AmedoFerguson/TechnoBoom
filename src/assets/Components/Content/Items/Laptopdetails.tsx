@@ -120,7 +120,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 							className='toggle-btn'
 							onClick={() => setIsExpanded(!isExpanded)}
 						>
-							{isExpanded ? 'Скрыть' : 'Показать больше'}
+							{isExpanded ? 'Скрити' : 'Показати більше'}
 						</button>
 					)}
 				</div>
