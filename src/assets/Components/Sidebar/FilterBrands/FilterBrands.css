@@ -20,8 +20,9 @@
 .brand_name .brand {
   margin-top: 5px;
   position: relative;
-  width: 300px;
-  padding-left: 20px;
+  width: 290px;
+  padding-left: 30px;
+  overflow: hidden;
 }
 @media (max-width: 720px) {
   .brand_name .brand {
@@ -37,9 +38,10 @@
   border: 2px solid #d9d9d9;
   border-radius: 5px;
   position: absolute;
-  left: -10px;
+  left: 0px;
   top: 50%;
   transform: translateY(-50%);
+  overflow: visible;
 }
 @media (max-width: 720px) {
   .brand_name .brand::before {
