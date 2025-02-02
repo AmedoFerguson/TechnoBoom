@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 10px;
   width: 200px;
-  top: 95px;
+  top: 55px;
   font-family: "Montserrat", serif;
   font-size: 18px;
   font-weight: 800;
@@ -27,7 +27,8 @@
 @media (max-width: 720px) {
   .brand_name .brand {
     padding-top: 10px;
-    padding-left: 20px;
+    padding-left: 30px;
+    width: 150px;
   }
 }
 .brand_name .brand::before {
@@ -49,9 +50,9 @@
     border-radius: 50%;
     background: #21201E;
     border: 1px solid #3E3D3B;
-    margin-left: -3px;
+    margin-left: 1px;
     margin-top: -13px;
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }
 .brand_name .brand.active::before {
@@ -65,8 +66,8 @@
 }
 @media (max-width: 720px) {
   .brand_name .brand.active::before {
-    transform: scale(1.2);
-    margin-left: -3px;
-    margin-top: -13px;
+    transform: scale(1.1);
+    margin-left: 1px;
+    margin-top: -11px;
   }
 }/*# sourceMappingURL=FilterBrands.css.map */

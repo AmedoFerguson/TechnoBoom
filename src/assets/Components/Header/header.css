@@ -8,6 +8,11 @@
   background: #21201E;
   z-index: 1;
 }
+@media (max-width: 393px) {
+  .fixed-header {
+    position: absolute;
+  }
+}
 
 header {
   position: absolute;

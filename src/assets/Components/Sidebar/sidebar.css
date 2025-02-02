@@ -23,13 +23,13 @@
   }
 }
 .sidebar-wrapper .reset-filters .reset-filters-btn {
-  padding: 6px;
+  padding: 2px;
   background: #dc3200;
   border: 1px solid #3E3D3B;
   position: absolute;
-  top: 295px;
-  left: 230px;
-  width: 80px;
+  top: 245px;
+  left: 105px;
+  width: 110px;
   border-radius: 50px;
   text-align: center;
   cursor: pointer;
@@ -43,8 +43,9 @@
 @media (max-width: 393px) {
   .sidebar-wrapper .reset-filters .reset-filters-btn {
     top: 193px;
-    left: 110px;
+    left: 100px;
     padding: 3px;
+    width: 90px;
   }
 }
 .sidebar-wrapper .reset-filters .reset-filters-btn:hover {
