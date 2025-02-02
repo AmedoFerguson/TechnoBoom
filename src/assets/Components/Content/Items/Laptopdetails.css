@@ -101,6 +101,17 @@
 @media (max-width: 393px) {
   .laptop-details .lower-laptop-details .laptop-title {
     margin-top: -80px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 393px) {
+  .laptop-details .lower-laptop-details .laptop-model {
+    font-size: 14px;
+  }
+}
+@media (max-width: 393px) {
+  .laptop-details .lower-laptop-details .laptop-price {
+    font-size: 14px;
   }
 }
 .laptop-details .lower-laptop-details .laptop-desc {
@@ -109,6 +120,11 @@
   overflow: hidden;
   word-wrap: break-word;
   white-space: normal;
+}
+@media (max-width: 393px) {
+  .laptop-details .lower-laptop-details .laptop-desc {
+    font-size: 14px;
+  }
 }
 .laptop-details .lower-laptop-details .laptop-desc .desc-textarea {
   width: 100%;
@@ -127,6 +143,16 @@
   outline: none;
   border-color: #007bff;
   background-color: #fff;
+}
+@media (max-width: 393px) {
+  .laptop-details .lower-laptop-details .laptop-desc .desc-textarea {
+    font-size: 12px;
+  }
+}
+@media (max-width: 393px) {
+  .laptop-details .lower-laptop-details .laptop-owner {
+    font-size: 16px;
+  }
 }
 .laptop-details .lower-laptop-details .delete-laptop-btn {
   width: 200px;

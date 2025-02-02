@@ -10,7 +10,7 @@
 }
 @media (max-width: 393px) {
   .fixed-header {
-    position: absolute;
+    position: static;
   }
 }
 
@@ -28,7 +28,7 @@ header {
   header {
     height: 39px;
     position: fixed;
-    z-index: 100000;
+    z-index: 1;
   }
 }
 header .search {
