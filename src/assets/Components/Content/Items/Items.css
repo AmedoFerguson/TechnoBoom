@@ -7,7 +7,7 @@
   display: flex;
   flex-wrap: wrap;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-list {
     width: 400px;
     margin-left: -20px;
@@ -56,6 +56,7 @@
   }
 }
 .laptop-list .laptop .lower-laptop {
+  position: relative;
   text-align: center;
   width: 300px;
   height: 90px;
@@ -77,6 +78,8 @@
 @media (max-width: 415px) {
   .laptop-list .laptop .lower-laptop::after {
     width: 146px;
+    position: absolute;
+    top: 76px;
   }
 }
 .laptop-list .laptop .lower-laptop .laptop-title {
