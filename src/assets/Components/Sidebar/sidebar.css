@@ -14,7 +14,7 @@
     height: calc(100vh + 3px);
   }
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper {
     width: 200px;
     height: 652px;
@@ -40,7 +40,7 @@
   color: #fff;
   transition: all 500ms ease;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .reset-filters .reset-filters-btn {
     top: 193px;
     left: 100px;
@@ -55,7 +55,7 @@
 .sidebar-wrapper .exit-sidebar {
   display: none;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .exit-sidebar {
     display: block;
     position: absolute;
@@ -74,7 +74,7 @@
   top: 40px;
   left: -10px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .logo {
     background: url("./img/logo-mobile.svg") no-repeat;
     transform: scale(1.5);
@@ -95,7 +95,7 @@
   height: 2px;
   background: #fff;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .filter .filter-price::before {
     width: 200px;
     left: 0;
@@ -112,7 +112,7 @@
   height: 2px;
   background: #fff;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .filter .filter-price::after {
     width: 200px;
     left: 0;
@@ -128,7 +128,7 @@
   font-weight: 600;
   color: #fff;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .filter .filter-price .title-price {
     top: 95px;
   }
@@ -142,7 +142,7 @@
   margin-left: 178px;
   margin-top: -11px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .filter .filter-price .title-price::after {
     width: 20px;
     background: #3E3D3B;
@@ -162,7 +162,7 @@
   background: #21201E;
   border: 1px solid #3E3D3B;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .filter .filter-price .search-price-1 .price-input1 {
     width: 55px;
     height: 15px;
@@ -189,7 +189,7 @@
   background: #21201E;
   border: 1px solid #3E3D3B;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .filter .filter-price .search-price-2 .price-input2 {
     width: 55px;
     height: 15px;
@@ -212,7 +212,7 @@
   left: 15px;
   top: 250px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .filter .filter-brand {
     top: 200px;
     left: 10px;
@@ -224,7 +224,7 @@
   top: -195px;
   left: 145px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .sidebar-wrapper .filter .filter-brand .search-brand {
     display: none;
   }

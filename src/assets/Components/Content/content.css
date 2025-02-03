@@ -13,7 +13,7 @@
   font-weight: 800;
   color: #333;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .content-wrapper {
     top: 0;
     left: 0;

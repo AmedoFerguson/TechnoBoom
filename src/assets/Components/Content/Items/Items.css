@@ -22,7 +22,7 @@
   margin-bottom: 50px;
   margin-left: 30px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-list .laptop {
     height: 164px;
     width: 146px;
@@ -37,7 +37,7 @@
   text-align: center;
   border-radius: 10px 10px 0 0;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-list .laptop .upper-laptop {
     width: 146px;
     height: 46px;
@@ -47,7 +47,7 @@
 .laptop-list .laptop .upper-laptop img {
   height: 150px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-list .laptop .upper-laptop img {
     height: 75px;
     align-content: center;
@@ -60,7 +60,7 @@
   width: 300px;
   height: 90px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-list .laptop .lower-laptop {
     width: 146px;
     height: 50px;
@@ -74,7 +74,7 @@
   background: #DC3200;
   border-radius: 0 0 4px 4px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-list .laptop .lower-laptop::after {
     width: 146px;
   }
@@ -83,7 +83,7 @@
   margin-top: 20px;
   font-size: 14px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-list .laptop .lower-laptop .laptop-title {
     font-size: 12px;
     margin-top: 40px;
@@ -94,7 +94,7 @@
   font-weight: 200;
   margin-top: 10px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-list .laptop .lower-laptop .laptop-model {
     font-size: 12px;
     margin-top: 5px;
@@ -104,7 +104,7 @@
   font-size: 14px;
   margin-top: 10px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-list .laptop .lower-laptop .laptop-price {
     font-size: 12px;
   }

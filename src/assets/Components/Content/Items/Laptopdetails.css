@@ -8,7 +8,7 @@
   background: #fff;
   display: block;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details {
     top: 0;
     left: 0;
@@ -27,7 +27,7 @@
   cursor: pointer;
   transition: color 500ms ease;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .exit-button-details {
     left: 360px;
   }
@@ -42,7 +42,7 @@
   font-size: 36px;
   font-weight: 800;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .ad {
     font-size: 24px;
     left: 115px;
@@ -59,7 +59,7 @@
   border-radius: 10px 10px 0 0;
   z-index: 50;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .upper-laptop-details {
     width: 100vw;
     height: 50vh;
@@ -72,7 +72,7 @@
   -o-object-fit: cover;
      object-fit: cover;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .upper-laptop-details img {
     height: 200px;
   }
@@ -88,7 +88,7 @@
   text-align: center;
   font-size: 24px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .lower-laptop-details {
     margin-left: 0;
     width: 100vw;
@@ -98,18 +98,18 @@
 .laptop-details .lower-laptop-details .laptop-title {
   margin-top: -30px;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .lower-laptop-details .laptop-title {
     margin-top: -80px;
     font-size: 14px;
   }
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .lower-laptop-details .laptop-model {
     font-size: 14px;
   }
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .lower-laptop-details .laptop-price {
     font-size: 14px;
   }
@@ -121,7 +121,7 @@
   word-wrap: break-word;
   white-space: normal;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .lower-laptop-details .laptop-desc {
     font-size: 14px;
   }
@@ -144,12 +144,12 @@
   border-color: #007bff;
   background-color: #fff;
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .lower-laptop-details .laptop-desc .desc-textarea {
     font-size: 12px;
   }
 }
-@media (max-width: 393px) {
+@media (max-width: 415px) {
   .laptop-details .lower-laptop-details .laptop-owner {
     font-size: 16px;
   }
