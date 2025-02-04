@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import './AdPopup.css'
 import logo from './zoofeel_logo.png'
-import meowSound from './meow.mp3' // добавьте файл звука в ваш проект
+import meowSound from './meow.mp3' 
 
 const AdPopup: React.FC = () => {
 	const [isVisible, setIsVisible] = useState(true)
@@ -23,7 +23,7 @@ const AdPopup: React.FC = () => {
 				'_blank',
 				'noopener,noreferrer'
 			)
-		}, 500) // задержка для завершения звука
+		}, 500) 
 	}
 
 	if (!isVisible) return null
