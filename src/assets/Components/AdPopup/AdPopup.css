@@ -18,6 +18,9 @@
 .ad-popup .ad-content {
   text-align: center;
 }
+.ad-popup .ad-content svg {
+  margin-bottom: 10px;
+}
 .ad-popup .ad-content h2 {
   margin: 0;
   font-size: 18px;
