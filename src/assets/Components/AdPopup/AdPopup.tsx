@@ -17,8 +17,8 @@ const AdPopup: React.FC = () => {
 	return (
 		<div className='ad-popup'>
 			<div className='ad-content'>
-				<h2>Хочешь собаку? Или ты кошатник?</h2>
-				<p>Тогда переходи сюда и получи возможность вдуть овце!</p>
+				<h2>Хочеш собаку? Чи ти кошатник?</h2>
+				<p>Тоді переходь сюди і знайди свого улюбленця!</p>
 				<a
 					href='https://zoofeel.onrender.com'
 					target='_blank'
@@ -27,7 +27,7 @@ const AdPopup: React.FC = () => {
 					Перейти на сайт
 				</a>
 				<button className='close-button' onClick={() => setIsVisible(false)}>
-					Закрыть
+					Закрити
 				</button>
 			</div>
 		</div>

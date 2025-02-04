@@ -10,6 +10,11 @@
   border-radius: 10px;
   animation: fadeIn 0.5s ease-in-out;
 }
+@media (max-width: 415px) {
+  .ad-popup {
+    margin-left: 20px;
+  }
+}
 .ad-popup .ad-content {
   text-align: center;
 }
