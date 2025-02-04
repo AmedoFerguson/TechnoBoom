@@ -25,6 +25,7 @@
 .ad-popup .ad-content a {
   display: inline-block;
   margin-top: 10px;
+  margin-right: 5px;
   padding: 8px 16px;
   background-color: #4caf50;
   color: white;
@@ -37,6 +38,7 @@
 }
 .ad-popup .ad-content .close-button {
   margin-top: 10px;
+  margin-left: 5px;
   background-color: transparent;
   border: none;
   color: #888;

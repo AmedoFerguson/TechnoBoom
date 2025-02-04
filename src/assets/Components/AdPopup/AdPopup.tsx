@@ -18,7 +18,7 @@ const AdPopup: React.FC = () => {
 		<div className='ad-popup'>
 			<div className='ad-content'>
 				<h2>Хочешь собаку? Или ты кошатник?</h2>
-				<p>Тогда переходи сюда и найди своего любимца!</p>
+				<p>Тогда переходи сюда и получи возможность вдуть овце!</p>
 				<a
 					href='https://zoofeel.onrender.com'
 					target='_blank'
