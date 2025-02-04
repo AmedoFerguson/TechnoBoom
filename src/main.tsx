@@ -7,6 +7,7 @@ import Content from './assets/Components/Content/Content'
 import Register from './assets/Components/Registration/Registration'
 import Login from './assets/Components/Login/Login'
 import NewAd from './assets/Components/NewAd/NewAd'
+import AdPopup from './assets/Components/AdPopup/AdPopup'
 
 interface Laptop {
 	id: number
@@ -49,6 +50,7 @@ const App: React.FC = () => {
 
 	return (
 		<div className='wrapper' ref={wrapperRef}>
+			<AdPopup />
 			<Sidebar onFilterChange={handleFilterChange} />
 
 			<Header
