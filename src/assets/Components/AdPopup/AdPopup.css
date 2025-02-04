@@ -12,13 +12,14 @@
 }
 @media (max-width: 415px) {
   .ad-popup {
-    margin-left: 20px;
+    right: 35px;
   }
 }
 .ad-popup .ad-content {
   text-align: center;
 }
-.ad-popup .ad-content svg {
+.ad-popup .ad-content img {
+  height: 60px;
   margin-bottom: 10px;
 }
 .ad-popup .ad-content h2 {
@@ -30,7 +31,7 @@
   font-size: 14px;
   color: #555;
 }
-.ad-popup .ad-content a {
+.ad-popup .ad-content .go {
   display: inline-block;
   margin-top: 10px;
   margin-right: 5px;
@@ -40,8 +41,9 @@
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s;
+  border: none;
 }
-.ad-popup .ad-content a:hover {
+.ad-popup .ad-content .go:hover {
   background-color: #45a049;
 }
 .ad-popup .ad-content .close-button {
