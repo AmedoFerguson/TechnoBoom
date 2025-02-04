@@ -49,7 +49,7 @@ const AdPopup: React.FC = () => {
 					<g></g>
 				</svg>
 				<h2>Хочеш собаку? Чи ти кошатник?</h2>
-				<p>Тоді переходь сюди і знайди свого улюбленця!</p>
+				<p>Тоді переходь сюди і знайди свою вівцю!</p>
 				<a
 					href='https://zoofeel.onrender.com'
 					target='_blank'
