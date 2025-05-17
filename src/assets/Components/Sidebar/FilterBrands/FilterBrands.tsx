@@ -1,91 +1,66 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+import './FilterBrands.css'
 
-interface Brand {
+interface Model {
 	id: number
-	model: string
+	model: string // Модель ноутбука
 }
 
 interface FilterBrandsProps {
-	onSelectBrand: (brand: Brand | null) => void
+	brands: Model[] // Список моделей для фильтрации
+	searchTerm: string // Поиск по модели
+	onModelChange: (models: string[]) => void // Обработчик изменения моделей
+	activeModels: string[] // Передаем активные модели
 }
 
-const API_URL = 'http://localhost:8000/' // Подставь свой бекенд
+const FilterBrands: React.FC<FilterBrandsProps> = ({
+	brands,
+	searchTerm,
+	onModelChange,
+	activeModels,
+}) => {
+	const [activeBrandIds, setActiveBrandIds] = useState<number[]>([])
 
-const FilterBrands: React.FC<FilterBrandsProps> = ({ onSelectBrand }) => {
-	const [brands, setBrands] = useState<Brand[]>([])
-	const [searchTerm, setSearchTerm] = useState('')
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
-
+	// Сбрасываем активные галочки при изменении активных моделей
 	useEffect(() => {
-		const fetchBrands = async () => {
-			setLoading(true)
-			setError(null)
-			try {
-				const response = await axios.get(`${API_URL}items/models/`)
-				const data = response.data
-				console.log('Получили данные моделей:', data)
+		const newActiveIds = brands
+			.filter(brand => activeModels.includes(brand.model))
+			.map(brand => brand.id)
+		setActiveBrandIds(newActiveIds)
+	}, [brands, activeModels])
 
-				if (!Array.isArray(data)) {
-					throw new Error('Ответ от сервера не является массивом')
-				}
+	const handleClick = (id: number) => {
+		setActiveBrandIds(prevActiveIds => {
+			const updatedIds = prevActiveIds.includes(id)
+				? prevActiveIds.filter(activeId => activeId !== id) // Удаляем модель из активных
+				: [...prevActiveIds, id] // Добавляем модель в активные
 
-				// Валидация каждого элемента
-				const validBrands = data
-					.map((item: any) =>
-						item &&
-						typeof item.model === 'string' &&
-						typeof item.id === 'number'
-							? { id: item.id, model: item.model }
-							: null
-					)
-					.filter((item): item is Brand => item !== null)
+			const updatedModels = brands
+				.filter(brand => updatedIds.includes(brand.id))
+				.map(brand => brand.model)
 
-				setBrands(validBrands)
-			} catch (err: any) {
-				console.error('Ошибка загрузки моделей:', err)
-				setError('Не удалось загрузить модели')
-			} finally {
-				setLoading(false)
-			}
-		}
+			onModelChange(updatedModels) // Обновляем выбранные модели
+			return updatedIds // Возвращаем обновленный массив активных идентификаторов
+		})
+	}
 
-		fetchBrands()
-	}, [])
-
-	// Фильтруем бренды по поисковому термину
-	const filteredBrands = Array.isArray(brands)
-		? brands.filter(brand =>
-				brand.model.toLowerCase().includes(searchTerm.toLowerCase())
-		  )
-		: []
+	const filteredBrands = brands.filter(brand =>
+		brand.model.toLowerCase().includes(searchTerm.toLowerCase())
+	)
 
 	return (
-		<div>
-			<input
-				type='text'
-				placeholder='Поиск бренда'
-				value={searchTerm}
-				onChange={e => setSearchTerm(e.target.value)}
-				style={{ marginBottom: '10px', padding: '5px', width: '200px' }}
-			/>
-			{loading && <p>Загрузка брендов...</p>}
-			{error && <p style={{ color: 'red' }}>{error}</p>}
-			<ul>
-				{filteredBrands.map(brand => (
-					<li
-						key={brand.id}
-						onClick={() => onSelectBrand(brand)}
-						style={{ cursor: 'pointer', padding: '5px 0' }}
-					>
-						{brand.model}
-					</li>
-				))}
-				{filteredBrands.length === 0 && !loading && !error && (
-					<li>Бренды не найдены</li>
-				)}
-			</ul>
+		<div className='brand_name'>
+			{filteredBrands.map(brand => (
+				<div
+					key={brand.id}
+					className={`brand ${
+						activeBrandIds.includes(brand.id) ? 'active' : ''
+					}`}
+					onClick={() => handleClick(brand.id)} // Передаем модель в обработчик
+				>
+					{brand.model}
+				</div>
+			))}
 		</div>
 	)
 }

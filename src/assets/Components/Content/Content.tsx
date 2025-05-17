@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import './content.css'
 import axios from 'axios'
-import './Content.css'
+import Items from './Items/Items'
+import LaptopDetails from './Items/Laptopdetails'
 
 interface Laptop {
 	id: number
 	title: string
+	model: string
 	price: number
-	image_url: string | null
-	model?: string
+	description: string
+	owner: number
+	image_url: string
 }
 
 interface ContentProps {
@@ -17,8 +21,6 @@ interface ContentProps {
 	token: string
 }
 
-const API_URL = 'https://backend-production-a524.up.railway.app/'
-
 const Content: React.FC<ContentProps> = ({
 	selectedModels,
 	minPrice,
@@ -26,96 +28,54 @@ const Content: React.FC<ContentProps> = ({
 	token,
 }) => {
 	const [laptops, setLaptops] = useState<Laptop[]>([])
-	const [isLoading, setIsLoading] = useState(true)
-	const [error, setError] = useState<string | null>(null)
+	const [selectedLaptop, setSelectedLaptop] = useState<Laptop | null>(null)
+	const API_URL = 'https://backend-production-a524.up.railway.app/'
+
+	const fetchLaptops = async () => {
+		try {
+			const response = await axios.get<Laptop[]>(`${API_URL}items/`)
+			setLaptops(response.data)
+		} catch (error) {
+			console.error('Ошибка загрузки ноутбуков', error)
+		}
+	}
 
 	useEffect(() => {
-		const fetchLaptops = async () => {
-			setIsLoading(true)
-			setError(null)
-
-			try {
-				const params: Record<string, any> = {}
-
-				if (selectedModels.length > 0) {
-					params.model = selectedModels
-				}
-
-				if (minPrice) {
-					params.min_price = minPrice
-				}
-
-				if (maxPrice) {
-					params.max_price = maxPrice
-				}
-
-				const response = await axios.get(`${API_URL}items/`, {
-					params,
-					headers: token ? { Authorization: `Bearer ${token}` } : {},
-				})
-
-				let laptopsData: Laptop[] = []
-
-				if (response.data?.results && Array.isArray(response.data.results)) {
-					laptopsData = response.data.results
-				} else if (Array.isArray(response.data)) {
-					laptopsData = response.data
-				} else if (response.data?.data && Array.isArray(response.data.data)) {
-					laptopsData = response.data.data
-				} else {
-					throw new Error('Неверный формат данных')
-				}
-
-				const validatedLaptops = laptopsData
-					.map(item => ({
-						id: Number(item.id),
-						title: String(item.title || 'Без названия'),
-						price: Number(item.price) || 0,
-						image_url: item.image_url || null,
-						model: item.model ? String(item.model) : undefined,
-					}))
-					.filter(item => !isNaN(item.id) && item.title)
-
-				setLaptops(validatedLaptops)
-			} catch (err) {
-				setError('Не удалось загрузить данные')
-			} finally {
-				setIsLoading(false)
-			}
-		}
-
 		fetchLaptops()
-	}, [selectedModels, minPrice, maxPrice, token])
+	}, [])
 
-	if (isLoading) {
-		return <div className='loading'>Загрузка...</div>
-	}
+	const filteredLaptops = laptops.filter(laptop => {
+		const matchesModel =
+			selectedModels.length > 0
+				? selectedModels.some(
+						model => laptop.model.toLowerCase() === model.toLowerCase()
+				  )
+				: true
 
-	if (error) {
-		return <div className='error'>{error}</div>
-	}
+		const matchesPrice =
+			(!minPrice || laptop.price >= parseFloat(minPrice)) &&
+			(!maxPrice || laptop.price <= parseFloat(maxPrice))
 
-	if (laptops.length === 0) {
-		return <div className='empty'>Нет ноутбуков, соответствующих фильтрам</div>
-	}
+		return matchesModel && matchesPrice
+	})
 
 	return (
-		<div className='content'>
-			<h2>Список ноутбуков ({laptops.length})</h2>
-			<div className='laptop-grid'>
-				{laptops.map(laptop => (
-					<div key={laptop.id} className='laptop-card'>
-						<img
-							src={laptop.image_url || '/null.png'}
-							alt={laptop.title}
-							className='laptop-image'
-						/>
-						<h3>{laptop.title}</h3>
-						{laptop.model && <p>Модель: {laptop.model}</p>}
-						<p>Цена: {laptop.price} грн</p>
-					</div>
-				))}
-			</div>
+		<div className='content-wrapper'>
+			<Items
+				laptops={filteredLaptops}
+				onLaptopClick={laptop => setSelectedLaptop(laptop)}
+				onDeleteLaptop={() => {}}
+				userId={null}
+			/>
+
+			{selectedLaptop && (
+				<LaptopDetails
+					laptop={selectedLaptop}
+					onClose={() => setSelectedLaptop(null)}
+					token={token}
+					onDelete={() => {}}
+				/>
+			)}
 		</div>
 	)
 }
