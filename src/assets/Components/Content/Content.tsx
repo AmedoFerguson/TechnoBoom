@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const API_URL = 'https://your-backend-url/api/' // замени на актуальный адрес
+const API_URL = 'https://backend-production-a524.up.railway.app/' // актуальный URL
 
 interface Laptop {
 	id: number
 	title: string
 	price: number
-	image_url: string
+	image_url: string | null
 }
 
 interface ContentProps {
@@ -28,7 +28,24 @@ const Content: React.FC<ContentProps> = ({
 	useEffect(() => {
 		const fetchLaptops = async () => {
 			try {
-				const response = await axios.get(`${API_URL}items/`)
+				const params: any = {}
+
+				if (selectedModels.length > 0) {
+					params.model = selectedModels
+				}
+
+				if (minPrice) {
+					params.min_price = minPrice
+				}
+
+				if (maxPrice) {
+					params.max_price = maxPrice
+				}
+
+				const response = await axios.get(`${API_URL}items/`, {
+					params,
+				})
+
 				console.log('Ответ от API:', response.data)
 
 				const laptops = Array.isArray(response.data.results)
@@ -48,13 +65,17 @@ const Content: React.FC<ContentProps> = ({
 
 	return (
 		<div className='content'>
-			<h2>Список ноутбуков</h2>
+			<h2>Список ноутбуків</h2>
 			<div className='laptop-grid'>
 				{laptops.map(laptop => (
 					<div key={laptop.id} className='laptop-card'>
-						<img src={laptop.image_url} alt={laptop.title} />
+						<img
+							src={laptop.image_url || '/null.png'}
+							alt={laptop.title}
+							style={{ width: '200px', height: '150px', objectFit: 'cover' }}
+						/>
 						<h3>{laptop.title}</h3>
-						<p>Цена: {laptop.price} грн</p>
+						<p>Ціна: {laptop.price} грн</p>
 					</div>
 				))}
 			</div>
