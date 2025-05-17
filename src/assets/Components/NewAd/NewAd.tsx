@@ -80,6 +80,7 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 					image: null,
 				}
 				onAddLaptop(newLaptop)
+				console.log('Token:', token)
 
 				setLaptopData({
 					title: '',
