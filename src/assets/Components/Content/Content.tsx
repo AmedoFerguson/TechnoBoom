@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import './content.css'
 import axios from 'axios'
 import Items from './Items/Items'
@@ -33,19 +33,26 @@ const Content: React.FC<ContentProps> = ({
 	const [page, setPage] = useState(1)
 	const [hasMore, setHasMore] = useState(true)
 
+	const observer = useRef<IntersectionObserver | null>(null)
+
 	const API_URL = 'https://backend-production-a524.up.railway.app/items/'
 
-	const fetchLaptops = async () => {
-		if (!hasMore) return
+	const fetchLaptops = async (reset = false) => {
+		if (loading || (!hasMore && !reset)) return
 		setLoading(true)
 		try {
 			const response = await axios.get(API_URL, {
-				params: { page, page_size: 6 },
+				params: { page: reset ? 1 : page, page_size: 6 },
 			})
 			const data = response.data.results || response.data
-			setLaptops(prev => [...prev, ...data])
+			if (reset) {
+				setLaptops(data)
+				setPage(2)
+			} else {
+				setLaptops(prev => [...prev, ...data])
+				setPage(prev => prev + 1)
+			}
 			setHasMore(Boolean(response.data.next))
-			setPage(prev => prev + 1)
 		} catch (err) {
 			console.error('Помилка при завантаженні ноутбуків:', err)
 		} finally {
@@ -54,11 +61,9 @@ const Content: React.FC<ContentProps> = ({
 	}
 
 	useEffect(() => {
-		// Сброс и повторный вызов загрузки
-		setLaptops([])
 		setPage(1)
 		setHasMore(true)
-		fetchLaptops()
+		fetchLaptops(true)
 	}, [selectedModels, minPrice, maxPrice])
 
 	const filteredLaptops = laptops.filter(laptop => {
@@ -73,31 +78,41 @@ const Content: React.FC<ContentProps> = ({
 		return matchesModel && matchesPrice
 	})
 
+	const handleDeleteLaptop = (id: number) => {
+		setLaptops(prev => prev.filter(laptop => laptop.id !== id))
+		setSelectedLaptop(null)
+	}
+
+	const lastLaptopRef = useCallback(
+		(node: HTMLDivElement) => {
+			if (loading) return
+			if (observer.current) observer.current.disconnect()
+			observer.current = new IntersectionObserver(entries => {
+				if (entries[0].isIntersecting && hasMore) {
+					fetchLaptops()
+				}
+			})
+			if (node) observer.current.observe(node)
+		},
+		[loading, hasMore]
+	)
+
 	return (
 		<div className='content-wrapper'>
 			<Items
 				laptops={filteredLaptops}
 				onLaptopClick={setSelectedLaptop}
-				onDeleteLaptop={() => {}}
+				onDeleteLaptop={handleDeleteLaptop}
 				userId={null}
+				lastLaptopRef={lastLaptopRef}
 			/>
-
-			{!loading && filteredLaptops.length === 0 && (
-				<p>Немає ноутбуків за заданими фільтрами.</p>
-			)}
-
 			{loading && <p>Завантаження...</p>}
-
-			{hasMore && !loading && (
-				<button onClick={fetchLaptops}>Показати ще</button>
-			)}
-
 			{selectedLaptop && (
 				<LaptopDetails
 					laptop={selectedLaptop}
 					onClose={() => setSelectedLaptop(null)}
 					token={token}
-					onDelete={() => {}}
+					onDelete={() => handleDeleteLaptop(selectedLaptop.id)}
 				/>
 			)}
 		</div>

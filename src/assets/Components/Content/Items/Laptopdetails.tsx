@@ -17,7 +17,11 @@ interface LaptopDetailsProps {
 	onDelete: () => void
 }
 
-const LaptopDetails: React.FC<LaptopDetailsProps> = ({ laptop, onClose }) => {
+const LaptopDetails: React.FC<LaptopDetailsProps> = ({
+	laptop,
+	onClose,
+	onDelete,
+}) => {
 	return (
 		<div className='laptop-details'>
 			<button onClick={onClose} className='btn-close'>
@@ -30,6 +34,9 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({ laptop, onClose }) => {
 				<p className='laptop-price'>
 					<strong>Ціна:</strong> {laptop.price} ₴
 				</p>
+				<button onClick={onDelete} className='btn-delete'>
+					Видалити
+				</button>
 			</div>
 		</div>
 	)
