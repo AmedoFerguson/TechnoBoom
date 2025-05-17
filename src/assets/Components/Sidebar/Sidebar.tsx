@@ -121,9 +121,12 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 	render() {
 		const { brands, searchTerm, selectedModels, loading, error } = this.state
 
-		const filteredBrands = brands.filter(brand =>
-			brand.model.toLowerCase().includes(searchTerm.toLowerCase())
-		)
+		// Защита от ошибки, если brands вдруг не массив
+		const filteredBrands = Array.isArray(brands)
+			? brands.filter(brand =>
+					brand.model.toLowerCase().includes(searchTerm.toLowerCase())
+			  )
+			: []
 
 		return (
 			<div className='sidebar'>
