@@ -91,6 +91,7 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 
 				console.log('Ноутбук успішно доданий', response.data)
 			} else {
+				console.log('Token:', token)
 				console.error('Помилка при створенні ноутбука', response.data)
 			}
 		} catch (error) {
