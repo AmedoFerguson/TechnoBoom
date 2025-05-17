@@ -81,7 +81,7 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 				}
 				onAddLaptop(newLaptop)
 				console.log('Token:', token)
-
+				window.location.reload
 				setLaptopData({
 					title: '',
 					model: '',

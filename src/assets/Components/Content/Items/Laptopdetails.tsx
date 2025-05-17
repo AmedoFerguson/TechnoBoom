@@ -74,12 +74,11 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 					},
 				}
 			)
-
+			window.location.reload
 			onDelete(id)
 		} catch (error) {
 			console.error('Ошибка при удалении ноутбука:', error)
 		}
-		
 	}
 
 	return (
