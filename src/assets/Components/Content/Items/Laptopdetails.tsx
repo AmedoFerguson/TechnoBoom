@@ -79,7 +79,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 		} catch (error) {
 			console.error('Ошибка при удалении ноутбука:', error)
 		}
-		window.location.reload()
+		
 	}
 
 	return (
