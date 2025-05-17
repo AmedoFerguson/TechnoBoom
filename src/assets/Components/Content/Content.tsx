@@ -33,7 +33,7 @@ const Content: React.FC<ContentProps> = ({
 
 	const fetchLaptops = async () => {
 		try {
-			const response = await axios.get<Laptop[]>(`${API_URL}items/`)
+			const response = await axios.get<Laptop[]>(`${API_URL}items/items/`)
 			setLaptops(response.data)
 		} catch (error) {
 			console.error('Ошибка загрузки ноутбуков', error)
