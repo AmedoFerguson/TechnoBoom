@@ -5,7 +5,7 @@ const API_URL = 'https://your-backend-url/api/' // замени на актуа�
 
 interface Laptop {
 	id: number
-	name: string
+	title: string
 	price: number
 	image_url: string
 }
@@ -52,8 +52,8 @@ const Content: React.FC<ContentProps> = ({
 			<div className='laptop-grid'>
 				{laptops.map(laptop => (
 					<div key={laptop.id} className='laptop-card'>
-						<img src={laptop.image_url} alt={laptop.name} />
-						<h3>{laptop.name}</h3>
+						<img src={laptop.image_url} alt={laptop.title} />
+						<h3>{laptop.title}</h3>
 						<p>Цена: {laptop.price} грн</p>
 					</div>
 				))}
