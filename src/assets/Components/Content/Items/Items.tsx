@@ -1,5 +1,6 @@
 import React from 'react'
 import './Items.css'
+import nullpng from '../../../../../public/null.png'
 
 interface Laptop {
 	id: number
