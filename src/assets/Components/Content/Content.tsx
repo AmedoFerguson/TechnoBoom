@@ -8,10 +8,21 @@ interface Laptop {
 	name: string
 	price: number
 	image_url: string
-	// добавь другие поля, если нужно
 }
 
-const Content: React.FC = () => {
+interface ContentProps {
+	selectedModels: string[]
+	minPrice: string
+	maxPrice: string
+	token: string
+}
+
+const Content: React.FC<ContentProps> = ({
+	selectedModels,
+	minPrice,
+	maxPrice,
+	token,
+}) => {
 	const [laptops, setLaptops] = useState<Laptop[]>([])
 
 	useEffect(() => {
@@ -33,7 +44,7 @@ const Content: React.FC = () => {
 		}
 
 		fetchLaptops()
-	}, [])
+	}, [selectedModels, minPrice, maxPrice])
 
 	return (
 		<div className='content'>
