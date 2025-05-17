@@ -47,12 +47,18 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 	fetchModels = async () => {
 		try {
 			const response = await axios.get(`${API_URL}items/`)
-			this.setState({
-				brands: response.data.map((item: any) => ({
-					id: item.id,
-					model: item.model,
-				})),
-			})
+			const data = Array.isArray(response.data)
+				? response.data
+				: Array.isArray(response.data.results)
+				? response.data.results
+				: []
+
+			const models = data.map((item: any) => ({
+				id: item.id,
+				model: item.model,
+			}))
+
+			this.setState({ brands: models })
 		} catch (error) {
 			console.error('Ошибка при загрузке моделей:', error)
 		}
