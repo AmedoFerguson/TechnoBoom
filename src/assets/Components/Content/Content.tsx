@@ -54,14 +54,12 @@ const Content: React.FC<ContentProps> = ({
 	}
 
 	useEffect(() => {
+		// Сброс и повторный вызов загрузки
 		setLaptops([])
 		setPage(1)
 		setHasMore(true)
-	}, [selectedModels, minPrice, maxPrice])
-
-	useEffect(() => {
 		fetchLaptops()
-	}, [page])
+	}, [selectedModels, minPrice, maxPrice])
 
 	const filteredLaptops = laptops.filter(laptop => {
 		const matchesModel =
@@ -83,7 +81,13 @@ const Content: React.FC<ContentProps> = ({
 				onDeleteLaptop={() => {}}
 				userId={null}
 			/>
+
+			{!loading && filteredLaptops.length === 0 && (
+				<p>Немає ноутбуків за заданими фільтрами.</p>
+			)}
+
 			{loading && <p>Завантаження...</p>}
+
 			{hasMore && !loading && (
 				<button onClick={fetchLaptops}>Показати ще</button>
 			)}

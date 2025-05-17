@@ -35,7 +35,11 @@ const Items: React.FC<ItemsProps> = ({
 				>
 					<div className='laptop'>
 						<div className='upper-laptop'>
-							<img src={laptop.image_url || `${NullPng}`} />
+							<img
+								src={laptop.image_url || NullPng}
+								alt={laptop.title}
+								loading='lazy'
+							/>
 						</div>
 						<div className='lower-laptop'>
 							<div className='laptop-title'>{laptop.title}</div>
