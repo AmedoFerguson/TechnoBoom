@@ -47,18 +47,21 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 	fetchModels = async () => {
 		try {
 			const response = await axios.get(`${API_URL}items/`)
-			const data = Array.isArray(response.data)
-				? response.data
-				: Array.isArray(response.data.results)
-				? response.data.results
+			const data = response.data
+
+			// Безопасная проверка на массив или пагинированный объект
+			const items = Array.isArray(data)
+				? data
+				: Array.isArray(data.results)
+				? data.results
 				: []
 
-			const models = data.map((item: any) => ({
-				id: item.id,
-				model: item.model,
-			}))
-
-			this.setState({ brands: models })
+			this.setState({
+				brands: items.map((item: any) => ({
+					id: item.id,
+					model: item.model,
+				})),
+			})
 		} catch (error) {
 			console.error('Ошибка при загрузке моделей:', error)
 		}
@@ -99,9 +102,11 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 
 	render() {
 		const { brands, searchTerm, selectedModels } = this.state
-		const filteredBrands = brands.filter(brand =>
-			brand.model.toLowerCase().includes(searchTerm.toLowerCase())
-		)
+		const filteredBrands = Array.isArray(brands)
+			? brands.filter(brand =>
+					brand.model.toLowerCase().includes(searchTerm.toLowerCase())
+			  )
+			: []
 
 		return (
 			<div className='sidebar'>
