@@ -1,3 +1,4 @@
+import React from 'react'
 import './LaptopDetails.css'
 
 interface Laptop {
@@ -9,33 +10,27 @@ interface Laptop {
 	owner: number
 }
 
-interface Props {
+interface LaptopDetailsProps {
 	laptop: Laptop
 	onClose: () => void
 	token: string
 	onDelete: () => void
 }
 
-const LaptopDetails: React.FC<Props> = ({ laptop, onClose }) => {
+const LaptopDetails: React.FC<LaptopDetailsProps> = ({ laptop, onClose }) => {
 	return (
 		<div className='laptop-details'>
-			<img
-				src={laptop.image_url}
-				alt={laptop.title}
-				className='laptop-image'
-				loading='lazy'
-			/>
+			<button onClick={onClose} className='btn-close'>
+				Закрити
+			</button>
+			<img src={laptop.image_url} alt={laptop.title} className='laptop-image' />
 			<div className='laptop-info'>
 				<h2>{laptop.title}</h2>
 				<p>{laptop.description}</p>
 				<p className='laptop-price'>
-					<strong>Ціна:</strong> {laptop.price}₴
-				</p>
-				<p className='laptop-owner'>
-					<strong>Власник ID:</strong> {laptop.owner}
+					<strong>Ціна:</strong> {laptop.price} ₴
 				</p>
 			</div>
-			<button onClick={onClose}>Закрити</button>
 		</div>
 	)
 }
