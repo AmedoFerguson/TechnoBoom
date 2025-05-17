@@ -43,9 +43,10 @@ const FilterBrands: React.FC<FilterBrandsProps> = ({
 		})
 	}
 
+	const safeBrands = Array.isArray(brands) ? brands : []
 
 	const uniqueBrands = Array.from(
-		new Map(brands.map(brand => [brand.model, brand])).values()
+		new Map(safeBrands.map(brand => [brand.model, brand])).values()
 	)
 
 	const filteredBrands = uniqueBrands.filter(brand =>
@@ -54,17 +55,21 @@ const FilterBrands: React.FC<FilterBrandsProps> = ({
 
 	return (
 		<div className='brand_name'>
-			{filteredBrands.map(brand => (
-				<div
-					key={brand.id}
-					className={`brand ${
-						activeBrandIds.includes(brand.id) ? 'active' : ''
-					}`}
-					onClick={() => handleClick(brand.id)}
-				>
-					{brand.model}
-				</div>
-			))}
+			{filteredBrands.length === 0 ? (
+				<p>Моделі не знайдені</p>
+			) : (
+				filteredBrands.map(brand => (
+					<div
+						key={brand.id}
+						className={`brand ${
+							activeBrandIds.includes(brand.id) ? 'active' : ''
+						}`}
+						onClick={() => handleClick(brand.id)}
+					>
+						{brand.model}
+					</div>
+				))
+			)}
 		</div>
 	)
 }
