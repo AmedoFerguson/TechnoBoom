@@ -29,18 +29,24 @@ const Content: React.FC<ContentProps> = ({
 }) => {
 	const [laptops, setLaptops] = useState<Laptop[]>([])
 	const [selectedLaptop, setSelectedLaptop] = useState<Laptop | null>(null)
-	const [loading, setLoading] = useState<boolean>(false)
-	const [error, setError] = useState<string | null>(null)
-	const API_URL = 'https://backend-production-a524.up.railway.app/'
+	const [loading, setLoading] = useState(false)
+	const [page, setPage] = useState(1)
+	const [hasMore, setHasMore] = useState(true)
+
+	const API_URL = 'https://backend-production-a524.up.railway.app/items/'
 
 	const fetchLaptops = async () => {
+		if (!hasMore) return
 		setLoading(true)
-		setError(null)
 		try {
-			const response = await axios.get<Laptop[]>(`${API_URL}items/`)
-			setLaptops(response.data)
+			const response = await axios.get(API_URL, {
+				params: { page, page_size: 6 },
+			})
+			const data = response.data.results || response.data
+			setLaptops(prev => [...prev, ...data])
+			setHasMore(Boolean(response.data.next))
+			setPage(prev => prev + 1)
 		} catch (err) {
-			setError('Не вдалося завантажити ноутбуки')
 			console.error('Помилка при завантаженні ноутбуків:', err)
 		} finally {
 			setLoading(false)
@@ -48,35 +54,38 @@ const Content: React.FC<ContentProps> = ({
 	}
 
 	useEffect(() => {
+		setLaptops([])
+		setPage(1)
+		setHasMore(true)
+	}, [selectedModels, minPrice, maxPrice])
+
+	useEffect(() => {
 		fetchLaptops()
-	}, [])
+	}, [page])
 
 	const filteredLaptops = laptops.filter(laptop => {
 		const matchesModel =
-			selectedModels.length > 0
-				? selectedModels.some(
-						model => laptop.model.toLowerCase() === model.toLowerCase()
-				  )
-				: true
-
+			selectedModels.length === 0 ||
+			selectedModels.some(
+				model => laptop.model.toLowerCase() === model.toLowerCase()
+			)
 		const matchesPrice =
 			(!minPrice || laptop.price >= parseFloat(minPrice)) &&
 			(!maxPrice || laptop.price <= parseFloat(maxPrice))
-
 		return matchesModel && matchesPrice
 	})
 
 	return (
 		<div className='content-wrapper'>
-			{loading && <p>Завантаження ноутбуків...</p>}
-			{error && <p className='error'>{error}</p>}
-			{!loading && !error && (
-				<Items
-					laptops={filteredLaptops}
-					onLaptopClick={setSelectedLaptop}
-					onDeleteLaptop={() => {}}
-					userId={null}
-				/>
+			<Items
+				laptops={filteredLaptops}
+				onLaptopClick={setSelectedLaptop}
+				onDeleteLaptop={() => {}}
+				userId={null}
+			/>
+			{loading && <p>Завантаження...</p>}
+			{hasMore && !loading && (
+				<button onClick={fetchLaptops}>Показати ще</button>
 			)}
 
 			{selectedLaptop && (
