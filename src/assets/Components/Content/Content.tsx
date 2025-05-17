@@ -1,120 +1,52 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
-import './content.css'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import Items from './Items/Items'
-import LaptopDetails from './Items/Laptopdetails'
+
+const API_URL = 'https://your-backend-url/api/' // замени на актуальный адрес
 
 interface Laptop {
 	id: number
-	title: string
-	model: string
+	name: string
 	price: number
-	description: string
-	owner: number
 	image_url: string
+	// добавь другие поля, если нужно
 }
 
-interface ContentProps {
-	selectedModels: string[]
-	minPrice: string
-	maxPrice: string
-	token: string
-}
-
-const Content: React.FC<ContentProps> = ({
-	selectedModels,
-	minPrice,
-	maxPrice,
-	token,
-}) => {
+const Content: React.FC = () => {
 	const [laptops, setLaptops] = useState<Laptop[]>([])
-	const [selectedLaptop, setSelectedLaptop] = useState<Laptop | null>(null)
-	const [loading, setLoading] = useState(false)
-	const [page, setPage] = useState(1)
-	const [hasMore, setHasMore] = useState(true)
-
-	const observer = useRef<IntersectionObserver | null>(null)
-
-	const API_URL = 'https://backend-production-a524.up.railway.app/items/'
-
-	const fetchLaptops = async (reset = false) => {
-		if (loading || (!hasMore && !reset)) return
-		setLoading(true)
-		try {
-			const response = await axios.get(API_URL, {
-				params: { page: reset ? 1 : page, page_size: 6 },
-			})
-			const data = response.data.results || response.data
-			if (reset) {
-				setLaptops(data)
-				setPage(2)
-			} else {
-				setLaptops(prev => [...prev, ...data])
-				setPage(prev => prev + 1)
-			}
-			setHasMore(Boolean(response.data.next))
-		} catch (err) {
-			console.error('Помилка при завантаженні ноутбуків:', err)
-		} finally {
-			setLoading(false)
-		}
-	}
 
 	useEffect(() => {
-		setPage(1)
-		setHasMore(true)
-		fetchLaptops(true)
-	}, [selectedModels, minPrice, maxPrice])
+		const fetchLaptops = async () => {
+			try {
+				const response = await axios.get(`${API_URL}items/`)
+				console.log('Ответ от API:', response.data)
 
-	const filteredLaptops = laptops.filter(laptop => {
-		const matchesModel =
-			selectedModels.length === 0 ||
-			selectedModels.some(
-				model => laptop.model.toLowerCase() === model.toLowerCase()
-			)
-		const matchesPrice =
-			(!minPrice || laptop.price >= parseFloat(minPrice)) &&
-			(!maxPrice || laptop.price <= parseFloat(maxPrice))
-		return matchesModel && matchesPrice
-	})
+				const laptops = Array.isArray(response.data.results)
+					? response.data.results
+					: Array.isArray(response.data)
+					? response.data
+					: []
 
-	const handleDeleteLaptop = (id: number) => {
-		setLaptops(prev => prev.filter(laptop => laptop.id !== id))
-		setSelectedLaptop(null)
-	}
+				setLaptops(laptops)
+			} catch (error) {
+				console.error('Ошибка при загрузке ноутбуков:', error)
+			}
+		}
 
-	const lastLaptopRef = useCallback(
-		(node: HTMLDivElement) => {
-			if (loading) return
-			if (observer.current) observer.current.disconnect()
-			observer.current = new IntersectionObserver(entries => {
-				if (entries[0].isIntersecting && hasMore) {
-					fetchLaptops()
-				}
-			})
-			if (node) observer.current.observe(node)
-		},
-		[loading, hasMore]
-	)
+		fetchLaptops()
+	}, [])
 
 	return (
-		<div className='content-wrapper'>
-			<Items
-				laptops={filteredLaptops}
-				onLaptopClick={setSelectedLaptop}
-				onDeleteLaptop={handleDeleteLaptop}
-				userId={null}
-				lastLaptopRef={lastLaptopRef}
-			/>
-			{loading && <p>Завантаження...</p>}
-			{selectedLaptop && (
-				<LaptopDetails
-					laptop={selectedLaptop}
-					onClose={() => setSelectedLaptop(null)}
-					token={token}
-					onDelete={() => handleDeleteLaptop(selectedLaptop.id)}
-				/>
-			)}
+		<div className='content'>
+			<h2>Список ноутбуков</h2>
+			<div className='laptop-grid'>
+				{laptops.map(laptop => (
+					<div key={laptop.id} className='laptop-card'>
+						<img src={laptop.image_url} alt={laptop.name} />
+						<h3>{laptop.name}</h3>
+						<p>Цена: {laptop.price} грн</p>
+					</div>
+				))}
+			</div>
 		</div>
 	)
 }
