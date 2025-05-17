@@ -47,11 +47,15 @@ const FilterBrands: React.FC<FilterBrandsProps> = ({
 		? Array.from(new Map(brands.map(brand => [brand.model, brand])).values())
 		: []
 
-		const filteredBrands = Array.isArray(uniqueBrands)
-			? uniqueBrands.filter(brand =>
-					brand.model.toLowerCase().includes(searchTerm.toLowerCase())
-			  )
-			: []
+		const filteredBrands =
+			Array.isArray(uniqueBrands) && uniqueBrands.length
+				? uniqueBrands.filter(
+						brand =>
+							brand &&
+							brand.model &&
+							brand.model.toLowerCase().includes(searchTerm.toLowerCase())
+				  )
+				: []
 				
 
 	return (

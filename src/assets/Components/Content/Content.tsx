@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const API_URL = 'https://backend-production-a524.up.railway.app/' // актуальный URL
+const API_URL = 'https://backend-production-a524.up.railway.app/'
 
 interface Laptop {
 	id: number
@@ -24,11 +24,16 @@ const Content: React.FC<ContentProps> = ({
 	token,
 }) => {
 	const [laptops, setLaptops] = useState<Laptop[]>([])
+	const [isLoading, setIsLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
 
 	useEffect(() => {
 		const fetchLaptops = async () => {
+			setIsLoading(true)
+			setError(null)
+
 			try {
-				const params: any = {}
+				const params: Record<string, any> = {}
 
 				if (selectedModels.length > 0) {
 					params.model = selectedModels
@@ -42,30 +47,62 @@ const Content: React.FC<ContentProps> = ({
 					params.max_price = maxPrice
 				}
 
+				console.log('Отправка запроса с параметрами:', params)
 				const response = await axios.get(`${API_URL}items/`, {
 					params,
+					headers: token ? { Authorization: `Bearer ${token}` } : {},
 				})
 
-				console.log('Ответ от API:', response.data)
+				console.log('Полный ответ от сервера:', response)
+				console.log('Данные ответа:', response.data)
+				console.log('Тип данных:', typeof response.data)
+				console.log('Это массив?', Array.isArray(response.data))
 
-				const laptops = Array.isArray(response.data.results)
-					? response.data.results
-					: Array.isArray(response.data)
-					? response.data
-					: []
+				if (response.data?.results) {
+					console.log('Найдено поле results:', response.data.results)
+					console.log('Тип results:', typeof response.data.results)
+					console.log('Results - массив?', Array.isArray(response.data.results))
+				}
 
-				setLaptops(laptops)
-			} catch (error) {
-				console.error('Ошибка при загрузке ноутбуков:', error)
+				let laptopsData: Laptop[] = []
+
+				if (response.data?.results && Array.isArray(response.data.results)) {
+					laptopsData = response.data.results
+				} else if (Array.isArray(response.data)) {
+					laptopsData = response.data
+				} else {
+					console.warn('Неожиданный формат данных:', response.data)
+					setError('Неожиданный формат данных от сервера')
+				}
+
+				console.log('Обработанные данные ноутбуков:', laptopsData)
+				setLaptops(laptopsData)
+			} catch (err) {
+				console.error('Ошибка при загрузке:', err)
+				setError('Не удалось загрузить данные')
+			} finally {
+				setIsLoading(false)
 			}
 		}
 
 		fetchLaptops()
-	}, [selectedModels, minPrice, maxPrice])
+	}, [selectedModels, minPrice, maxPrice, token])
+
+	if (isLoading) {
+		return <div className='loading'>Загрузка...</div>
+	}
+
+	if (error) {
+		return <div className='error'>{error}</div>
+	}
+
+	if (laptops.length === 0) {
+		return <div className='empty'>Нет ноутбуков, соответствующих фильтрам</div>
+	}
 
 	return (
 		<div className='content'>
-			<h2>Список ноутбуків</h2>
+			<h2>Список ноутбуков ({laptops.length})</h2>
 			<div className='laptop-grid'>
 				{laptops.map(laptop => (
 					<div key={laptop.id} className='laptop-card'>
@@ -75,7 +112,7 @@ const Content: React.FC<ContentProps> = ({
 							style={{ width: '200px', height: '150px', objectFit: 'cover' }}
 						/>
 						<h3>{laptop.title}</h3>
-						<p>Ціна: {laptop.price} грн</p>
+						<p>Цена: {laptop.price} грн</p>
 					</div>
 				))}
 			</div>
