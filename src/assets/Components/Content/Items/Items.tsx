@@ -51,7 +51,7 @@ const Items: React.FC<ItemsProps> = ({
 							}}
 							className='btn-delete'
 						>
-							Удалить
+							Видалити
 						</button>
 					)}
 				</li>

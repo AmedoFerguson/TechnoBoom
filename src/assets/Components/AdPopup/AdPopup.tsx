@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import './AdPopup.css'
 import logo from './zoofeel_logo.png'
-import meowSound from './meow.mp3' 
+import meowSound from './meow.mp3'
 
 const AdPopup: React.FC = () => {
 	const [isVisible, setIsVisible] = useState(true)
@@ -23,7 +23,7 @@ const AdPopup: React.FC = () => {
 				'_blank',
 				'noopener,noreferrer'
 			)
-		}, 500) 
+		}, 500)
 	}
 
 	if (!isVisible) return null
@@ -32,8 +32,8 @@ const AdPopup: React.FC = () => {
 		<div className='ad-popup'>
 			<div className='ad-content'>
 				<img src={logo} alt='ZooFeel Logo' />
-				<h2>Хочеш собаку? Чи ти кошатник?</h2>
-				<p>Тоді переходь сюди і знайди свою вівцю!</p>
+				<h2>Полюбляеш собак? Чи ти котолюб?</h2>
+				<p>Тоді переходь сюди і знайди свого улюбленця!</p>
 				<button className='go' onClick={handleButtonClick}>
 					Перейти на сайт
 				</button>

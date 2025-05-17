@@ -29,14 +29,21 @@ const Content: React.FC<ContentProps> = ({
 }) => {
 	const [laptops, setLaptops] = useState<Laptop[]>([])
 	const [selectedLaptop, setSelectedLaptop] = useState<Laptop | null>(null)
+	const [loading, setLoading] = useState<boolean>(false)
+	const [error, setError] = useState<string | null>(null)
 	const API_URL = 'https://backend-production-a524.up.railway.app/'
 
 	const fetchLaptops = async () => {
+		setLoading(true)
+		setError(null)
 		try {
 			const response = await axios.get<Laptop[]>(`${API_URL}items/`)
 			setLaptops(response.data)
-		} catch (error) {
-			console.error('Ошибка загрузки ноутбуков', error)
+		} catch (err) {
+			setError('Не вдалося завантажити ноутбуки')
+			console.error('Помилка при завантаженні ноутбуків:', err)
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -61,12 +68,16 @@ const Content: React.FC<ContentProps> = ({
 
 	return (
 		<div className='content-wrapper'>
-			<Items
-				laptops={filteredLaptops}
-				onLaptopClick={laptop => setSelectedLaptop(laptop)}
-				onDeleteLaptop={() => {}}
-				userId={null}
-			/>
+			{loading && <p>Завантаження ноутбуків...</p>}
+			{error && <p className='error'>{error}</p>}
+			{!loading && !error && (
+				<Items
+					laptops={filteredLaptops}
+					onLaptopClick={setSelectedLaptop}
+					onDeleteLaptop={() => {}}
+					userId={null}
+				/>
+			)}
 
 			{selectedLaptop && (
 				<LaptopDetails
