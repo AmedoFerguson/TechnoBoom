@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
-const API_URL = 'https://backend-production-a524.up.railway.app/'
+import './Content.css'
 
 interface Laptop {
 	id: number
 	title: string
 	price: number
 	image_url: string | null
+	model?: string
 }
 
 interface ContentProps {
@@ -16,6 +16,8 @@ interface ContentProps {
 	maxPrice: string
 	token: string
 }
+
+const API_URL = 'https://backend-production-a524.up.railway.app/'
 
 const Content: React.FC<ContentProps> = ({
 	selectedModels,
@@ -47,22 +49,10 @@ const Content: React.FC<ContentProps> = ({
 					params.max_price = maxPrice
 				}
 
-				console.log('Отправка запроса с параметрами:', params)
 				const response = await axios.get(`${API_URL}items/`, {
 					params,
 					headers: token ? { Authorization: `Bearer ${token}` } : {},
 				})
-
-				console.log('Полный ответ от сервера:', response)
-				console.log('Данные ответа:', response.data)
-				console.log('Тип данных:', typeof response.data)
-				console.log('Это массив?', Array.isArray(response.data))
-
-				if (response.data?.results) {
-					console.log('Найдено поле results:', response.data.results)
-					console.log('Тип results:', typeof response.data.results)
-					console.log('Results - массив?', Array.isArray(response.data.results))
-				}
 
 				let laptopsData: Laptop[] = []
 
@@ -70,15 +60,24 @@ const Content: React.FC<ContentProps> = ({
 					laptopsData = response.data.results
 				} else if (Array.isArray(response.data)) {
 					laptopsData = response.data
+				} else if (response.data?.data && Array.isArray(response.data.data)) {
+					laptopsData = response.data.data
 				} else {
-					console.warn('Неожиданный формат данных:', response.data)
-					setError('Неожиданный формат данных от сервера')
+					throw new Error('Неверный формат данных')
 				}
 
-				console.log('Обработанные данные ноутбуков:', laptopsData)
-				setLaptops(laptopsData)
+				const validatedLaptops = laptopsData
+					.map(item => ({
+						id: Number(item.id),
+						title: String(item.title || 'Без названия'),
+						price: Number(item.price) || 0,
+						image_url: item.image_url || null,
+						model: item.model ? String(item.model) : undefined,
+					}))
+					.filter(item => !isNaN(item.id) && item.title)
+
+				setLaptops(validatedLaptops)
 			} catch (err) {
-				console.error('Ошибка при загрузке:', err)
 				setError('Не удалось загрузить данные')
 			} finally {
 				setIsLoading(false)
@@ -109,9 +108,10 @@ const Content: React.FC<ContentProps> = ({
 						<img
 							src={laptop.image_url || '/null.png'}
 							alt={laptop.title}
-							style={{ width: '200px', height: '150px', objectFit: 'cover' }}
+							className='laptop-image'
 						/>
 						<h3>{laptop.title}</h3>
+						{laptop.model && <p>Модель: {laptop.model}</p>}
 						<p>Цена: {laptop.price} грн</p>
 					</div>
 				))}

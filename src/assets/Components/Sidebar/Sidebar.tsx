@@ -24,6 +24,8 @@ interface SidebarState {
 	selectedModels: string[]
 	minPrice: string
 	maxPrice: string
+	loading: boolean
+	error: string | null
 }
 
 const API_URL = 'https://backend-production-a524.up.railway.app/'
@@ -37,6 +39,8 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 			selectedModels: [],
 			minPrice: '',
 			maxPrice: '',
+			loading: false,
+			error: null,
 		}
 	}
 
@@ -45,24 +49,39 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 	}
 
 	fetchModels = async () => {
+		this.setState({ loading: true, error: null })
 		try {
 			const response = await axios.get(`${API_URL}items/models/`)
-			console.log('Ответ от сервера:', response.data)
+			let data: any[] = []
 
-			const data = Array.isArray(response.data)
-				? response.data
-				: Array.isArray(response.data.results)
-				? response.data.results
-				: []
+			if (Array.isArray(response.data)) {
+				data = response.data
+			} else if (
+				response.data?.results &&
+				Array.isArray(response.data.results)
+			) {
+				data = response.data.results
+			} else if (response.data?.data && Array.isArray(response.data.data)) {
+				data = response.data.data
+			} else {
+				throw new Error('Неверный формат данных моделей')
+			}
 
-			this.setState({
-				brands: data.map((item: any) => ({
-					id: item.id,
-					model: item.model,
-				})),
-			})
+			const validatedBrands = data
+				.map((item: any) =>
+					item?.id && item?.model
+						? { id: Number(item.id), model: String(item.model) }
+						: null
+				)
+				.filter((item): item is Model => item !== null)
+
+			this.setState({ brands: validatedBrands, loading: false })
 		} catch (error) {
-			console.error('Ошибка при загрузке моделей:', error)
+			this.setState({
+				brands: [],
+				loading: false,
+				error: 'Не удалось загрузить модели',
+			})
 		}
 	}
 
@@ -100,12 +119,11 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 	}
 
 	render() {
-		const { brands, searchTerm, selectedModels } = this.state
-		const filteredBrands = Array.isArray(brands)
-			? brands.filter(brand =>
-					brand.model.toLowerCase().includes(searchTerm.toLowerCase())
-			  )
-			: []
+		const { brands, searchTerm, selectedModels, loading, error } = this.state
+
+		const filteredBrands = brands.filter(brand =>
+			brand.model.toLowerCase().includes(searchTerm.toLowerCase())
+		)
 
 		return (
 			<div className='sidebar'>
@@ -116,14 +134,18 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 							const sidebarWrapper = document.querySelector(
 								'.sidebar-wrapper'
 							) as HTMLElement
-							if (sidebarWrapper) {
-								sidebarWrapper.style.display = 'none'
-							}
+							if (sidebarWrapper) sidebarWrapper.style.display = 'none'
 						}}
 					/>
 					<div className='logo'>
 						<img src='/search.png' alt='logo' />
 					</div>
+
+					{loading && (
+						<div className='loading-message'>Загрузка моделей...</div>
+					)}
+					{error && <div className='error-message'>{error}</div>}
+
 					<div className='filter'>
 						<div className='filter-price'>
 							<div className='title-price'>
@@ -167,6 +189,7 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 							/>
 						</div>
 					</div>
+
 					<div className='reset-filters'>
 						<span onClick={this.resetFilters} className='reset-filters-btn'>
 							Скинути фільтри

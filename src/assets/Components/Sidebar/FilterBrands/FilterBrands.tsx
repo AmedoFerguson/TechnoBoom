@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import './FilterBrands.css'
+import React from 'react'
 
 interface Model {
 	id: number
@@ -15,61 +14,29 @@ interface FilterBrandsProps {
 
 const FilterBrands: React.FC<FilterBrandsProps> = ({
 	brands,
-	searchTerm,
 	onModelChange,
 	activeModels,
 }) => {
-	const [activeBrandIds, setActiveBrandIds] = useState<number[]>([])
-
-	useEffect(() => {
-		const newActiveIds = brands
-			.filter(brand => activeModels.includes(brand.model))
-			.map(brand => brand.id)
-		setActiveBrandIds(newActiveIds)
-	}, [brands, activeModels])
-
-	const handleClick = (id: number) => {
-		setActiveBrandIds(prevActiveIds => {
-			const updatedIds = prevActiveIds.includes(id)
-				? prevActiveIds.filter(activeId => activeId !== id)
-				: [...prevActiveIds, id]
-
-			const updatedModels = brands
-				.filter(brand => updatedIds.includes(brand.id))
-				.map(brand => brand.model)
-
-			onModelChange(updatedModels)
-			return updatedIds
-		})
+	const handleCheckboxChange = (model: string, checked: boolean) => {
+		if (checked) {
+			onModelChange([...activeModels, model])
+		} else {
+			onModelChange(activeModels.filter(m => m !== model))
+		}
 	}
 
-	const uniqueBrands = Array.isArray(brands)
-		? Array.from(new Map(brands.map(brand => [brand.model, brand])).values())
-		: []
-
-		const filteredBrands =
-			Array.isArray(uniqueBrands) && uniqueBrands.length
-				? uniqueBrands.filter(
-						brand =>
-							brand &&
-							brand.model &&
-							brand.model.toLowerCase().includes(searchTerm.toLowerCase())
-				  )
-				: []
-				
-
 	return (
-		<div className='brand_name'>
-			{filteredBrands.map(brand => (
-				<div
-					key={brand.id}
-					className={`brand ${
-						activeBrandIds.includes(brand.id) ? 'active' : ''
-					}`}
-					onClick={() => handleClick(brand.id)}
-				>
+		<div className='filter-brands-list'>
+			{brands.length === 0 && <p>Моделі не знайдено</p>}
+			{brands.map(brand => (
+				<label key={brand.id} className='filter-brand-item'>
+					<input
+						type='checkbox'
+						checked={activeModels.includes(brand.model)}
+						onChange={e => handleCheckboxChange(brand.model, e.target.checked)}
+					/>
 					{brand.model}
-				</div>
+				</label>
 			))}
 		</div>
 	)
