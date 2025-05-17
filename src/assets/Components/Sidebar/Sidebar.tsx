@@ -49,14 +49,14 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 			const response = await axios.get(`${API_URL}items/`)
 			console.log('Ответ от сервера:', response.data)
 
-			const items = Array.isArray(response.data)
+			const data = Array.isArray(response.data)
 				? response.data
 				: Array.isArray(response.data.results)
 				? response.data.results
 				: []
 
 			this.setState({
-				brands: items.map((item: any) => ({
+				brands: data.map((item: any) => ({
 					id: item.id,
 					model: item.model,
 				})),
@@ -121,7 +121,9 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 							}
 						}}
 					/>
-					<div className='logo'></div>
+					<div className='logo'>
+						<img src='/search.png' alt='logo' />
+					</div>
 					<div className='filter'>
 						<div className='filter-price'>
 							<div className='title-price'>
