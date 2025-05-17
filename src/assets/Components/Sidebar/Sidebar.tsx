@@ -46,7 +46,7 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 
 	fetchModels = async () => {
 		try {
-			const response = await axios.get(`${API_URL}items/`)
+			const response = await axios.get(`${API_URL}items/models/`)
 			console.log('Ответ от сервера:', response.data)
 
 			const data = Array.isArray(response.data)
