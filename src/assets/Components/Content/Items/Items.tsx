@@ -1,5 +1,6 @@
 import React from 'react'
 import './Items.css'
+import nullImage from '../../../../../public/null.png'
 
 interface Laptop {
 	id: number
@@ -34,10 +35,8 @@ const Items: React.FC<ItemsProps> = ({
 				>
 					<div className='laptop'>
 						<div className='upper-laptop'>
-							<img
-								src={laptop.image_url || '/null.png'}
-								alt={laptop.title}
-							/>
+							<img src={laptop.image_url || nullImage}
+							 alt={laptop.title} />
 						</div>
 						<div className='lower-laptop'>
 							<div className='laptop-title'>{laptop.title}</div>

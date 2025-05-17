@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import nullImage from '../../../../../public/null.png'
 import './Laptopdetails.css'
 import { RxCross2 } from 'react-icons/rx'
 import axios from 'axios'
@@ -87,7 +88,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 			<div className='ad'>Оголошення</div>
 			<div className='upper-laptop-details'>
 				<img
-					src={laptop?.image_url || '/null.png'}
+					src={laptop?.image_url || nullImage}
 					className='laptop-photo-details'
 					alt={laptop?.title || 'Ноутбук'}
 				/>
