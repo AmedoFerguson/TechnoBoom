@@ -87,7 +87,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 			<div className='ad'>Оголошення</div>
 			<div className='upper-laptop-details'>
 				<img
-					src={laptop?.image_url || '/public/null.png'}
+					src={laptop?.image_url || '/null.png'}
 					className='laptop-photo-details'
 					alt={laptop?.title || 'Ноутбук'}
 				/>
