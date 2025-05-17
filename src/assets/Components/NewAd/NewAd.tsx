@@ -9,12 +9,12 @@ interface Laptop {
 	model: string
 	price: number
 	description: string
-	image?: File | null 
+	image?: File | null
 }
 
 interface NewAdProps {
 	onAddLaptop: (newLaptop: Laptop) => void
-	token: string 
+	token: string
 }
 
 const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
@@ -59,16 +59,16 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 			formData.append('price', laptopData.price.toString())
 			formData.append('description', laptopData.description)
 			if (laptopData.image) {
-				formData.append('image', laptopData.image) 
+				formData.append('image', laptopData.image)
 			}
 
 			const response = await axios.post(
-				'https://backend-production-a524.up.railway.app/items/', 
+				'https://backend-production-a524.up.railway.app/items/items/',
 				formData,
 				{
 					headers: {
 						Authorization: `Bearer ${token}`,
-						'Content-Type': 'multipart/form-data', 
+						'Content-Type': 'multipart/form-data',
 					},
 				}
 			)
@@ -77,11 +77,10 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 				const newLaptop: Laptop = {
 					id: response.data.id,
 					...laptopData,
-					image: null, 
+					image: null,
 				}
 				onAddLaptop(newLaptop)
 
-				
 				setLaptopData({
 					title: '',
 					model: '',

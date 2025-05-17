@@ -72,10 +72,10 @@ const Login: React.FC<LoginProps> = ({ onTokenChange }) => {
 
 			onTokenChange(response.data.access)
 
-			alert('Вы успешно вошли!')
+			alert('Ви успішно увійшли!') 
 		} catch (error) {
 			console.error(error)
-			alert('Ошибка авторизации')
+			alert('Помилка авторизації')
 		}
 		window.location.reload()
 	}

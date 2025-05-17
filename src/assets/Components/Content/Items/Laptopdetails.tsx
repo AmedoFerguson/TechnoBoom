@@ -67,7 +67,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 	const handleDelete = async (id: number) => {
 		try {
 			await axios.delete(
-				`https://backend-production-a524.up.railway.app/items/${id}/`,
+				`https://backend-production-a524.up.railway.app/items/items/${id}/`,
 				{
 					headers: {
 						Authorization: `Bearer ${token}`,
