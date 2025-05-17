@@ -47,17 +47,10 @@ export class Sidebar extends Component<SidebarProps, SidebarState> {
 	fetchModels = async () => {
 		try {
 			const response = await axios.get(`${API_URL}items/`)
-			const data = response.data
-
-			// Безопасная проверка на массив или пагинированный объект
-			const items = Array.isArray(data)
-				? data
-				: Array.isArray(data.results)
-				? data.results
-				: []
+			console.log('Ответ от сервера:', response.data)
 
 			this.setState({
-				brands: items.map((item: any) => ({
+				brands: response.data.map((item: any) => ({
 					id: item.id,
 					model: item.model,
 				})),
