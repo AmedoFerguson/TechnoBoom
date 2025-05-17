@@ -102,7 +102,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 					<strong>Ціна:</strong> {laptop.price}₴
 				</p>
 				<p className='laptop-desc'>
-					<strong>Опис:</strong> {laptop.description}
+					<strong>Опис:</strong> <textarea>{laptop.description}</textarea>
 				</p>
 				<p className='laptop-owner'>
 					<strong>Власник:</strong> {ownerName || 'Невідомо'}
