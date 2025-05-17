@@ -89,14 +89,13 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 					image: null,
 				})
 
-				console.log('Ноутбук успешно добавлен', response.data)
+				console.log('Ноутбук успішно доданий', response.data)
 			} else {
-				console.error('Ошибка при добавлении ноутбука', response.data)
+				console.error('Помилка при створенні ноутбука', response.data)
 			}
 		} catch (error) {
-			console.error('Ошибка при добавлении ноутбука', error)
+			console.error('Помилка при додаванні ноутбука', error)
 		}
-		window.location.reload()
 	}
 
 	const handleNewAdClick = () => {
