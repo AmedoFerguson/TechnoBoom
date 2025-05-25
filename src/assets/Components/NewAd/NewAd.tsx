@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import './NewAd.css'
 import { RxCross2 } from 'react-icons/rx'
+import { Laptop } from '../../../LaptopType'
 
-interface Laptop {
-	id: number
+interface LaptopFormData {
 	title: string
 	model: string
 	price: number
@@ -18,7 +18,7 @@ interface NewAdProps {
 }
 
 const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
-	const [laptopData, setLaptopData] = useState<Omit<Laptop, 'id'>>({
+	const [laptopData, setLaptopData] = useState<LaptopFormData>({
 		title: '',
 		model: '',
 		price: 0,
@@ -29,18 +29,19 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 	const handleInputChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
-		setLaptopData({
-			...laptopData,
-			[e.target.name]: e.target.value,
-		})
+		const { name, value } = e.target
+		setLaptopData(prev => ({
+			...prev,
+			[name]: name === 'price' ? Number(value) : value,
+		}))
 	}
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files.length > 0) {
-			setLaptopData({
-				...laptopData,
-				image: e.target.files[0],
-			})
+			setLaptopData(prev => ({
+				...prev,
+				image: e.target.files![0],
+			}))
 		}
 	}
 
@@ -76,12 +77,16 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 			if (response.status === 201) {
 				const newLaptop: Laptop = {
 					id: response.data.id,
-					...laptopData,
-					image: null,
+					title: laptopData.title,
+					model: laptopData.model,
+					price: laptopData.price,
+					description: laptopData.description,
+					owner: response.data.owner, 
+					image_url: response.data.image_url, 
 				}
+
 				onAddLaptop(newLaptop)
-				console.log('Token:', token)
-				window.location.reload
+
 				setLaptopData({
 					title: '',
 					model: '',
@@ -90,13 +95,12 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 					image: null,
 				})
 
-				console.log('Ноутбук успішно доданий', response.data)
+				console.log('Ноутбук успешно добавлен', response.data)
 			} else {
-				console.log('Token:', token)
-				console.error('Помилка при створенні ноутбука', response.data)
+				console.error('Ошибка при создании ноутбука', response.data)
 			}
 		} catch (error) {
-			console.error('Помилка при додаванні ноутбука', error)
+			console.error('Ошибка при добавлении ноутбука', error)
 		}
 	}
 
@@ -110,32 +114,37 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 	return (
 		<form onSubmit={handleSubmit} className='add-ad'>
 			<RxCross2 className='exit-button-ad' onClick={handleNewAdClick} />
-			<h3>Додати ноутбук</h3>
+			<h3>Добавить ноутбук</h3>
 			<div className='ad-wrapper'>
 				<input
 					name='title'
 					value={laptopData.title}
 					onChange={handleInputChange}
-					placeholder='Назва'
+					placeholder='Название'
+					required
 				/>
 				<input
 					name='model'
 					value={laptopData.model}
 					onChange={handleInputChange}
 					placeholder='Модель'
+					required
 				/>
 				<input
 					name='price'
 					type='number'
 					value={laptopData.price}
 					onChange={handleInputChange}
-					placeholder='Ціна'
+					placeholder='Цена'
+					required
+					min={0}
 				/>
 				<textarea
 					name='description'
 					value={laptopData.description}
 					onChange={handleInputChange}
-					placeholder='Опис'
+					placeholder='Описание'
+					required
 				/>
 				<input
 					type='file'
@@ -145,7 +154,7 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 					className='input-btn'
 				/>
 				<button type='submit' className='submit-btn'>
-					Додати
+					Добавить
 				</button>
 			</div>
 		</form>

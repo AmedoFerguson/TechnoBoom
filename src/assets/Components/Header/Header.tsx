@@ -3,9 +3,10 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import { FaRegUser } from 'react-icons/fa'
 import { CiCirclePlus } from 'react-icons/ci'
 import './header.css'
-import Input from '../Sidebar/Input/Input'
+import SearchBar from './SearchBar'
 import { IoIosLogOut } from 'react-icons/io'
 import seacrhImg from '../../../../public/search.png'
+import { Laptop } from '../../../LaptopType'
 
 interface HeaderState {
 	searchInput: string
@@ -18,6 +19,9 @@ interface HeaderProps {
 	wrapperRef: React.RefObject<HTMLDivElement>
 	token: string
 	onLogout: () => void
+	onSearchChange: (value: string) => void
+	laptops: Laptop[]
+	onLaptopClick: (laptop: Laptop) => void
 }
 
 export class Header extends Component<HeaderProps, HeaderState> {
@@ -106,12 +110,11 @@ export class Header extends Component<HeaderProps, HeaderState> {
 						<img src={seacrhImg} alt='' height='27px' />
 					</div>
 					<div className='search-bg'>Пошук</div>
-					<Input
-						type='text'
-						placeholder='Пошук'
+					<SearchBar
 						value={this.state.searchInput}
 						onChange={this.handleSearchChange}
-						className='search-holder'
+						laptops={this.props.laptops}
+						onLaptopClick={this.props.onLaptopClick}
 					/>
 					<div className='search-button' color='#fff'></div>
 				</div>

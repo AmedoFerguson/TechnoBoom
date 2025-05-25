@@ -8,21 +8,18 @@ import Register from './assets/Components/Registration/Registration'
 import Login from './assets/Components/Login/Login'
 import NewAd from './assets/Components/NewAd/NewAd'
 import AdPopup from './assets/Components/AdPopup/AdPopup'
+import LaptopDetails from './assets/Components/Content/Items/Laptopdetails'
+import { Laptop } from './LaptopType'
 
-interface Laptop {
-	id: number
-	title: string
-	model: string
-	price: number
-	description: string
-}
 
 const App: React.FC = () => {
-	const [, setLaptops] = useState<Laptop[]>([])
+	const [laptops, setLaptops] = useState<Laptop[]>([])
 	const [selectedModels, setSelectedModels] = useState<string[]>([])
 	const [minPrice, setMinPrice] = useState('')
 	const [maxPrice, setMaxPrice] = useState('')
 	const [token, setToken] = useState<string>('')
+	const [selectedLaptop, setSelectedLaptop] = useState<Laptop | null>(null)
+	const [searchInput, setSearchInput] = useState<string>('')
 
 	const wrapperRef = useRef<HTMLDivElement>(null)
 
@@ -52,12 +49,14 @@ const App: React.FC = () => {
 		<div className='wrapper' ref={wrapperRef}>
 			<AdPopup />
 			<Sidebar onFilterChange={handleFilterChange} />
-
 			<Header
-				searchInput={''}
+				searchInput={searchInput}
 				wrapperRef={wrapperRef}
 				token={token}
 				onLogout={handleLogout}
+				laptops={laptops}
+				onLaptopClick={setSelectedLaptop}
+				onSearchChange={setSearchInput}
 			/>
 			<Content
 				selectedModels={selectedModels}
@@ -65,6 +64,14 @@ const App: React.FC = () => {
 				maxPrice={maxPrice}
 				token={token}
 			/>
+			{selectedLaptop && (
+				<LaptopDetails
+					laptop={selectedLaptop}
+					onClose={() => setSelectedLaptop(null)}
+					token={token}
+					onDelete={() => {}}
+				/>
+			)}
 			<Login onTokenChange={handleTokenChange} />
 			<Register />
 			<NewAd onAddLaptop={handleAddLaptop} token={token} />
