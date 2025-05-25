@@ -117,13 +117,14 @@
 .laptop-details .lower-laptop-details .laptop-desc {
   max-height: 200px;
   max-width: 100%;
+  font-size: 10px;
   overflow: hidden;
   word-wrap: break-word;
   white-space: normal;
 }
 @media (max-width: 415px) {
   .laptop-details .lower-laptop-details .laptop-desc {
-    font-size: 14px;
+    font-size: 8px;
   }
 }
 .laptop-details .lower-laptop-details .laptop-desc .desc-textarea {
