@@ -50,16 +50,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
 	return (
 		<div className='search-container' ref={containerRef}>
-			<div
-				onFocus={() => setIsFocused(true)}
-				onBlur={() => setIsFocused(false)}
-			>
+			<div>
 				<Input
 					type='text'
-					placeholder='Пошук'
+					placeholder='Поиск'
 					value={value}
 					onChange={onChange}
-					className='search-holder'
+					className='your-class'
 				/>
 			</div>
 			{isFocused && value && (

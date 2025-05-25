@@ -75,7 +75,6 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 					},
 				}
 			)
-			window.location.reload
 			onDelete(id)
 		} catch (error) {
 			console.error('Ошибка при удалении ноутбука:', error)
@@ -88,9 +87,9 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 			<div className='ad'>Оголошення</div>
 			<div className='upper-laptop-details'>
 				<img
-					src={laptop?.image_url || nullImage}
+					src={laptop.image_url || nullImage}
 					className='laptop-photo-details'
-					alt={laptop?.title || 'Ноутбук'}
+					alt={laptop.title || 'Ноутбук'}
 				/>
 			</div>
 			<div className='lower-laptop-details'>
@@ -103,7 +102,11 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 				</p>
 				<p className='laptop-desc'>
 					<strong>Опис:</strong>{' '}
-					<textarea className='desc-textarea'>{laptop.description}</textarea>
+					<textarea
+						className='desc-textarea'
+						value={laptop.description}
+						readOnly
+					/>
 				</p>
 				<p className='laptop-owner'>
 					<strong>Власник:</strong> {ownerName || 'Невідомо'}
