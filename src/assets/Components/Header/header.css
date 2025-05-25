@@ -36,6 +36,7 @@ header .search {
   margin-top: 13px;
   height: 95px;
   position: relative;
+  display: block;
 }
 @media (max-width: 1536px) {
   header .search {
@@ -54,7 +55,7 @@ header .search .burger-menu {
   left: 110px;
   color: #fff;
   transform: scale(1.9);
-  z-index: 1000;
+  z-index: 1;
 }
 @media (max-width: 415px) {
   header .search .burger-menu {

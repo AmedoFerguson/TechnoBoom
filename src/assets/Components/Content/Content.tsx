@@ -3,16 +3,7 @@ import './content.css'
 import axios from 'axios'
 import Items from './Items/Items'
 import LaptopDetails from './Items/Laptopdetails'
-
-interface Laptop {
-	id: number
-	title: string
-	model: string
-	price: number
-	description: string
-	owner: number
-	image_url: string
-}
+import SearchBar, { Laptop } from '../Header/SearchBar'
 
 interface ContentProps {
 	selectedModels: string[]
@@ -29,21 +20,23 @@ const Content: React.FC<ContentProps> = ({
 }) => {
 	const [laptops, setLaptops] = useState<Laptop[]>([])
 	const [selectedLaptop, setSelectedLaptop] = useState<Laptop | null>(null)
+	const [searchValue, setSearchValue] = useState('')
+
 	const API_URL = 'https://backend-production-a524.up.railway.app/'
 
-	const fetchLaptops = async () => {
-		try {
-			const response = await axios.get<Laptop[]>(`${API_URL}items/items/`)
-			setLaptops(response.data)
-		} catch (error) {
-			console.error('Ошибка загрузки ноутбуков', error)
-		}
-	}
-
 	useEffect(() => {
+		const fetchLaptops = async () => {
+			try {
+				const response = await axios.get<Laptop[]>(`${API_URL}items/items/`)
+				setLaptops(response.data)
+			} catch (error) {
+				console.error('Ошибка загрузки ноутбуков', error)
+			}
+		}
 		fetchLaptops()
 	}, [])
 
+	// Фильтрация по выбранным моделям и цене — без учёта поискового текста
 	const filteredLaptops = laptops.filter(laptop => {
 		const matchesModel =
 			selectedModels.length > 0
@@ -61,6 +54,14 @@ const Content: React.FC<ContentProps> = ({
 
 	return (
 		<div className='content-wrapper'>
+			<SearchBar
+				value={searchValue}
+				onChange={setSearchValue}
+				laptops={laptops} // полный список для подсказок поиска
+				onLaptopClick={laptop => setSelectedLaptop(laptop)}
+			/>
+
+			{/* Отображаем всегда laptops, отфильтрованные только по моделям и цене */}
 			<Items
 				laptops={filteredLaptops}
 				onLaptopClick={laptop => setSelectedLaptop(laptop)}

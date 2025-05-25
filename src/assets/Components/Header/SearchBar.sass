@@ -2,43 +2,82 @@
 @import '../../variables'
 
 .search-container
-    position: relative
-    width: 100%
-    max-width: 500px
+  margin-left: 150px
+  margin-top: 13px
+  height: 0px
+  width: 500px 
+  position: relative 
+  top: 0
+  left: 0
+  z-index: 10
+
+  @media (max-width: 1536px)
+    margin-left: -100px
+
+  @media (max-width: 415px)
+    height: 10px
+    width: 265px
+    margin-left: 10px
+
+  .search-holder
+    width: 500px
+    height: 15px
     margin: 0 auto
-    z-index: 10
+    position: absolute
+    top: -70px
+    left: 220px
+    padding-left: 40px
+    color: #333
 
-    .your-class
-        width: 100%
-        padding: 10px
-        border: 1px solid 
-        border-radius: 5px
-        font-size: 16px
-        @include main-text(16px, 400, #000)
+  .search-img
+    top: -65px
+    left: 225px
+    position: relative
+    z-index: 1000
 
-    .search-results
-        position: absolute
-        top: 100%
-        left: 0
-        right: 0
-        background-color: #fff
-        border: 1px solid 
-        border-radius: 0 0 5px 5px
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
-        max-height: 300px
-        overflow-y: auto
+  .search-results
+    width: 100%
+    position: absolute
+    top: -30px
+    left: 220px
+    right: 0
+    background-color: #fff
+    border: 1px solid $border-color
+    border-radius: 0 0 5px 5px
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
+    max-height: 300px
+    overflow-y: auto
+    z-index: 20
 
-        .search-result-item
-            padding: 10px
-            cursor: pointer
-            @include main-text(14px, 500, #000)
-            transition: background 0.3s ease
+    .search-result-item
+      padding: 10px
+      cursor: pointer
+      @include main-text(14px, 500, $text-color)
+      transition: background 0.3s ease
 
-            &:hover
-                background-color: #47464733
+      display: flex
+      align-items: center
+      gap: 10px
 
-        .no-results
-            padding: 10px
-            text-align: center
-            color: grey
-            font-style: italic
+      img
+        width: 50px
+        height: auto
+        object-fit: contain
+        border-radius: 4px
+
+      div
+        &:nth-child(2)
+          flex-grow: 1
+
+        &:nth-child(3)
+          font-weight: 700
+          white-space: nowrap
+
+      &:hover
+        background-color: $light-grey
+
+    .no-results
+      padding: 10px
+      text-align: center
+      color: $grey
+      font-style: italic

@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import './Input.css'
 
 interface InputProps {
 	type: string
 	placeholder: string
 	value: string
-	onChange: (value: string) => void 
+	onChange: (value: string) => void
 	className?: string
+	onFocus?: () => void
+	style?: CSSProperties
 }
 
 const Input: React.FC<InputProps> = ({
@@ -15,6 +17,7 @@ const Input: React.FC<InputProps> = ({
 	value,
 	onChange,
 	className,
+	onFocus,
 }) => {
 	return (
 		<input
@@ -22,7 +25,8 @@ const Input: React.FC<InputProps> = ({
 			placeholder={placeholder}
 			value={value}
 			onChange={e => onChange(e.target.value)}
-			className={`input ${className}`}
+			onFocus={onFocus}
+			className={`input ${className ?? ''}`}
 		/>
 	)
 }

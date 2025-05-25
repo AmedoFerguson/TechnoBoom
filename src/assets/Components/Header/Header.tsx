@@ -2,11 +2,10 @@ import { Component } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { FaRegUser } from 'react-icons/fa'
 import { CiCirclePlus } from 'react-icons/ci'
-import './header.css'
-import SearchBar from './SearchBar'
 import { IoIosLogOut } from 'react-icons/io'
-import seacrhImg from '../../../../public/search.png'
-import { Laptop } from '../../../LaptopType'
+import './header.css'
+import SearchBar, { Laptop } from './SearchBar'
+import searchImg from '../../../../public/search.png'
 
 interface HeaderState {
 	searchInput: string
@@ -19,9 +18,9 @@ interface HeaderProps {
 	wrapperRef: React.RefObject<HTMLDivElement>
 	token: string
 	onLogout: () => void
-	onSearchChange: (value: string) => void
 	laptops: Laptop[]
-	onLaptopClick: (laptop: Laptop) => void
+	onLaptopClick: React.Dispatch<React.SetStateAction<Laptop | null>>
+	onSearchChange: React.Dispatch<React.SetStateAction<string>>
 }
 
 export class Header extends Component<HeaderProps, HeaderState> {
@@ -36,6 +35,7 @@ export class Header extends Component<HeaderProps, HeaderState> {
 
 	handleSearchChange = (value: string) => {
 		this.setState({ searchInput: value })
+		this.props.onSearchChange(value)
 	}
 
 	handleLoginClick = () => {
@@ -58,7 +58,9 @@ export class Header extends Component<HeaderProps, HeaderState> {
 		const sidebarWrapper = document.querySelector(
 			'.sidebar-wrapper'
 		) as HTMLElement
-		sidebarWrapper.style.display = 'block'
+		if (sidebarWrapper) {
+			sidebarWrapper.style.display = 'block'
+		}
 	}
 
 	handleLogout = () => {
@@ -69,7 +71,9 @@ export class Header extends Component<HeaderProps, HeaderState> {
 
 	handleNewAdClick = () => {
 		const AdWrapper = document.querySelector('.add-ad') as HTMLElement
-		AdWrapper.style.display = 'block'
+		if (AdWrapper) {
+			AdWrapper.style.display = 'block'
+		}
 		const mainWrapper = document.querySelector('.wrapper') as HTMLElement
 		mainWrapper?.classList.toggle('active')
 	}
@@ -96,8 +100,8 @@ export class Header extends Component<HeaderProps, HeaderState> {
 	}
 
 	render() {
-		const { token } = this.props
-		const { isFixed } = this.state
+		const { token, laptops, onLaptopClick } = this.props
+		const { isFixed, searchInput } = this.state
 
 		return (
 			<header className={isFixed ? 'fixed-header' : ''}>
@@ -105,16 +109,6 @@ export class Header extends Component<HeaderProps, HeaderState> {
 					<RxHamburgerMenu
 						className='burger-menu'
 						onClick={this.handleBurgerClick}
-					/>
-					<div className='search-logo'>
-						<img src={seacrhImg} alt='' height='27px' />
-					</div>
-					<div className='search-bg'>Пошук</div>
-					<SearchBar
-						value={this.state.searchInput}
-						onChange={this.handleSearchChange}
-						laptops={this.props.laptops}
-						onLaptopClick={this.props.onLaptopClick}
 					/>
 					<div className='search-button' color='#fff'></div>
 				</div>
@@ -142,7 +136,7 @@ export class Header extends Component<HeaderProps, HeaderState> {
 							</div>
 							<div className='new-ad'>
 								<span className='bg-nav' onClick={this.handleNewAdClick}>
-									Додати Объву
+									Додати Об'яву
 								</span>
 							</div>
 						</div>

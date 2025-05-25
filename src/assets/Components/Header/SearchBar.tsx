@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Input from '../Sidebar/Input/Input'
+import searchImg from '../../../../public/search.png'
+import nullImage from '../../../../public/null.png'
+import './SearchBar.css'
 
-interface Laptop {
+export interface Laptop {
 	id: number
 	title: string
 	model: string
@@ -25,12 +28,21 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	onLaptopClick,
 }) => {
 	const [isFocused, setIsFocused] = useState(false)
+	const [debouncedValue, setDebouncedValue] = useState(value)
 	const containerRef = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+		const handler = setTimeout(() => {
+			setDebouncedValue(value)
+		}, 500)
+
+		return () => clearTimeout(handler)
+	}, [value])
 
 	const filteredLaptops = laptops.filter(
 		laptop =>
-			laptop.title.toLowerCase().includes(value.toLowerCase()) ||
-			laptop.model.toLowerCase().includes(value.toLowerCase())
+			laptop.title.toLowerCase().includes(debouncedValue.toLowerCase()) ||
+			laptop.model.toLowerCase().includes(debouncedValue.toLowerCase())
 	)
 
 	useEffect(() => {
@@ -50,25 +62,37 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
 	return (
 		<div className='search-container' ref={containerRef}>
-			<div>
-				<Input
-					type='text'
-					placeholder='Поиск'
-					value={value}
-					onChange={onChange}
-					className='your-class'
-				/>
-			</div>
-			{isFocused && value && (
+			<img src={searchImg} alt='search' height='27px' className='search-img' />
+			<Input
+				type='text'
+				placeholder='Пошук ноутбука...'
+				value={value}
+				onChange={onChange}
+				className='search-holder'
+				onFocus={() => setIsFocused(true)}
+			/>
+			{isFocused && debouncedValue && (
 				<div className='search-results'>
 					{filteredLaptops.length > 0 ? (
 						filteredLaptops.map(laptop => (
 							<div
 								key={laptop.id}
 								className='search-result-item'
-								onMouseDown={() => onLaptopClick(laptop)}
+								onMouseDown={() => {
+									onLaptopClick(laptop)
+									setIsFocused(false)
+								}}
 							>
-								{laptop.title}
+								<img src={laptop.image_url || nullImage} alt={laptop.title} />
+								<div>
+									{laptop.title} ({laptop.model})
+								</div>
+								<div>
+									{laptop.price.toLocaleString('uk-UA', {
+										style: 'currency',
+										currency: 'UAH',
+									})}
+								</div>
 							</div>
 						))
 					) : (

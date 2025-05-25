@@ -11,7 +11,6 @@ import AdPopup from './assets/Components/AdPopup/AdPopup'
 import LaptopDetails from './assets/Components/Content/Items/Laptopdetails'
 import { Laptop } from './LaptopType'
 
-
 const App: React.FC = () => {
 	const [laptops, setLaptops] = useState<Laptop[]>([])
 	const [selectedModels, setSelectedModels] = useState<string[]>([])
