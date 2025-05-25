@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Input from '../Sidebar/Input/Input'
-import './SearchBar.css'
 
 interface Laptop {
 	id: number
