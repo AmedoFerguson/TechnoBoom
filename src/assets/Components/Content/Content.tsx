@@ -36,7 +36,6 @@ const Content: React.FC<ContentProps> = ({
 		fetchLaptops()
 	}, [])
 
-	// Фильтрация по выбранным моделям и цене — без учёта поискового текста
 	const filteredLaptops = laptops.filter(laptop => {
 		const matchesModel =
 			selectedModels.length > 0
@@ -57,11 +56,11 @@ const Content: React.FC<ContentProps> = ({
 			<SearchBar
 				value={searchValue}
 				onChange={setSearchValue}
-				laptops={laptops} // полный список для подсказок поиска
+				laptops={laptops} 
 				onLaptopClick={laptop => setSelectedLaptop(laptop)}
 			/>
 
-			{/* Отображаем всегда laptops, отфильтрованные только по моделям и цене */}
+
 			<Items
 				laptops={filteredLaptops}
 				onLaptopClick={laptop => setSelectedLaptop(laptop)}

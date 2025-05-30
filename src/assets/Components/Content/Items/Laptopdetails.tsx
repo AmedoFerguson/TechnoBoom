@@ -117,7 +117,7 @@ const LaptopDetails: React.FC<LaptopDetailsProps> = ({
 						className='delete-laptop-btn'
 						onClick={() => handleDelete(laptop.id)}
 					>
-						Удалить
+						Видалити
 					</button>
 				)}
 			</div>

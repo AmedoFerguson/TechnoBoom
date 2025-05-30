@@ -81,8 +81,8 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 					model: laptopData.model,
 					price: laptopData.price,
 					description: laptopData.description,
-					owner: response.data.owner, 
-					image_url: response.data.image_url, 
+					owner: response.data.owner,
+					image_url: response.data.image_url,
 				}
 
 				onAddLaptop(newLaptop)
@@ -154,7 +154,7 @@ const NewAd: React.FC<NewAdProps> = ({ onAddLaptop, token }) => {
 					className='input-btn'
 				/>
 				<button type='submit' className='submit-btn'>
-					Добавить
+					Додати
 				</button>
 			</div>
 		</form>
